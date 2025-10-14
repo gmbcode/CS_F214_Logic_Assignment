@@ -67,7 +67,7 @@ string infixToPrefix(string infix) {
             }
             st.push(c);
         }
-        std::cout << "Prefix_expr: at index  " << i << " is " << prefix_expr << std::endl;
+        //std::cout << "Prefix_expr: at index  " << i << " is " << prefix_expr << std::endl;
     }
 
     // Pop all remaining operators from the stack.

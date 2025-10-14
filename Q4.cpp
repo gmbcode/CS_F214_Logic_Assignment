@@ -7,7 +7,7 @@ using std::max;
 int getParseTreeHeight(TreeNode* root) {
 
     if (root == nullptr) {
-        return -1;
+        return 0;
     }
 
     int leftHeight = getParseTreeHeight(root->left);
