@@ -3,4 +3,6 @@ project(Logic_Assignment)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(Logic_Assignment main.cpp Q1.cpp Q1.h)
+add_executable(Logic_Assignment main.cpp Q1.cpp Q1.h
+        Q2.h
+        Q2.cpp)

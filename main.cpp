@@ -2,6 +2,7 @@
 #include<string>
 #include<vector>
 #include "Q1.h"
+#include "Q2.h"
 using std::string;
 using std::vector;
 using std::cout;

@@ -47,6 +47,7 @@ string infixToPrefix(string infix) {
         else if (c == '(') {
             while (!st.empty() && st.top() != ')') {
                 prefix_expr += st.top();
+
                 st.pop();
             }
             if (!st.empty()) {
@@ -66,6 +67,7 @@ string infixToPrefix(string infix) {
             }
             st.push(c);
         }
+        std::cout << "Prefix_expr: at index  " << i << " is " << prefix_expr << std::endl;
     }
 
     // Pop all remaining operators from the stack.
