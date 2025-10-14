@@ -4,6 +4,7 @@
 #include "Q1.h"
 #include "Q2.h"
 #include "Q3.h"
+#include "Q4.h"
 using std::string;
 using std::vector;
 using std::cout;
@@ -45,7 +46,7 @@ int main() {
     printInfix(root2);
     std::cout << std::endl;
     std::cout << "Expected Infix:    ((p+q)*((~r)>s))" << std::endl;
-
+    std::cout << "Height of parse tree is : " << getParseTreeHeight(root1)<< std::endl;
     deleteTree(root2);
 
     return 0;

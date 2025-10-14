@@ -7,4 +7,6 @@ add_executable(Logic_Assignment main.cpp Q1.cpp Q1.h
         Q2.h
         Q2.cpp
         Q3.cpp
-        Q3.h)
+        Q3.h
+        Q4.cpp
+        Q4.h)
