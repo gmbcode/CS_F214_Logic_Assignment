@@ -28,7 +28,7 @@ int main() {
     std::cout << "Resulting Infix:   ";
     printInfix(root1);
     std::cout << std::endl;
-    std::cout << "Expected Infix:    ((~p)*q)>(r+s))" << std::endl;
+    std::cout << "Expected Infix:    (p+(~q))" << std::endl;
 
     // Clean up the allocated memory
     deleteTree(root1);
