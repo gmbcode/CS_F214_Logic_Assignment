@@ -3,6 +3,7 @@
 #include<vector>
 #include "Q1.h"
 #include "Q2.h"
+#include "Q3.h"
 using std::string;
 using std::vector;
 using std::cout;
@@ -10,12 +11,12 @@ using std::cin;
 using std::endl;
 
 int main() {
-    /*
+
     cout << "Task 1 : Converting infix to prefix propositional logic formula" << endl;
     string infix;
     cin >> infix;
     cout << "Prefix propositional logic formula : " << infixToPrefix(infix) << endl;
-    */
+
     std::cout << "--- Test Case 1 ---" << std::endl;
     std::string prefix1 = "+p~q";
 

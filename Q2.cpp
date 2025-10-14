@@ -52,30 +52,7 @@ TreeNode* buildParseTree(const std::string& prefix) {
 }
 
 // Prints the tree using an in-order traversal to get infix notation.
-void printInfix(TreeNode* root) {
-    if (root == nullptr) {
-        return;
-    }
 
-    // If it's an operator, print an opening parenthesis
-    if (isBinaryOperator(root->data) || isUnaryOperator(root->data)) {
-        std::cout << "(";
-    }
-
-    // Recurse on the left child
-    printInfix(root->left);
-
-    // Print the node's data
-    std::cout << root->data;
-
-    // Recurse on the right child
-    printInfix(root->right);
-
-    // If it's an operator, print a closing parenthesis
-    if (isBinaryOperator(root->data) || isUnaryOperator(root->data)) {
-        std::cout << ")";
-    }
-}
 
 // Deletes the tree using a post-order traversal to avoid dangling pointers.
 void deleteTree(TreeNode* root) {
