@@ -7,6 +7,7 @@
 #include "Q3.h"
 #include "Q4.h"
 #include "Q5.h"
+#include "Q6.h"
 using std::string;
 using std::vector;
 using std::cout;
@@ -50,7 +51,7 @@ int main() {
     std::cout << "Expected Infix:    ((p+q)*((~r)>s))" << std::endl;
     std::cout << "Height of parse tree is : " << getParseTreeHeight(root1)<< std::endl;
     deleteTree(root2);
-    */
+
     map<char, bool> truthValues;
     truthValues['p'] = false;
     string test = "p+~p";
@@ -59,5 +60,12 @@ int main() {
     printInfix(root3);
     cout << "Height of parse tree is : "<< getParseTreeHeight(root3) << endl;
     cout << "Truth value is : " << evaluateTruthValue(root3, truthValues) << endl;
+    */
+    string testcnf = "((p+q)*((~r)>s))";
+    TreeNode* root4= buildParseTree(infixToPrefix(testcnf));
+    printInfix(root4);
+    cout << endl;
+    root4 = toCNF(root4);
+    printInfix(root4);
     return 0;
 }
