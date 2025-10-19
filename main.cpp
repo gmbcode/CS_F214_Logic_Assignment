@@ -8,6 +8,7 @@
 #include "Q4.h"
 #include "Q5.h"
 #include "Q6.h"
+#include "Q7.h"
 using std::string;
 using std::vector;
 using std::cout;
@@ -67,5 +68,8 @@ int main() {
     cout << endl;
     root4 = toCNF(root4);
     printInfix(root4);
+    std::pair<int,int> val = isCNF(root4);
+    cout << endl;
+    cout <<" Number of valid clauses : " << val.first << endl <<  "Number of invalid clauses : " << val.second << endl;
     return 0;
 }

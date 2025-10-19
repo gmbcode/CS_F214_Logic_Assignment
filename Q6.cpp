@@ -1,11 +1,9 @@
-// q2_fixed.cpp
+// Q2.cpp
 #include "Q2.h"
 #include <iostream>
 using namespace std;
 
-
-
-// ---------- Utility ----------
+// ---------- Utility ---------- (Recursive cloner)
 TreeNode* cloneNode(TreeNode* node) {
     if (!node) return nullptr;
     TreeNode* c = new TreeNode(node->data);
@@ -14,28 +12,51 @@ TreeNode* cloneNode(TreeNode* node) {
     return c;
 }
 
+// Helper to get the child of a negation operator (stored in right)
+TreeNode* getNegationChild(TreeNode* node) {
+    if (!node || node->data != '~') return nullptr;
+    return node->right;
+}
+
 // ---------- Step 1: Eliminate implications ----------
 TreeNode* IMPL_FREE(TreeNode* root) {
     if (!root) return nullptr;
 
-    // Recursively process children first
-    TreeNode* L = IMPL_FREE(root->left);
-    TreeNode* R = IMPL_FREE(root->right);
+    // Leaf node
+    if (!root->left && !root->right) {
+        return new TreeNode(root->data);
+    }
 
+    // Handle negation (unary operator with operand in right)
+    if (root->data == '~') {
+        TreeNode* child = getNegationChild(root);
+        TreeNode* transformedChild = IMPL_FREE(child);
+
+        TreeNode* notNode = new TreeNode('~');
+        notNode->right = transformedChild;  // Store in right for proper inorder
+        notNode->left = nullptr;
+        return notNode;
+    }
+
+    // Handle implication: p > q  ≡  ~p + q
     if (root->data == '>') {
-        // p > q  ≡  ~p + q
+        TreeNode* L = IMPL_FREE(root->left);
+        TreeNode* R = IMPL_FREE(root->right);
+
         TreeNode* notLeft = new TreeNode('~');
-        notLeft->left = L;          // L already transformed
+        notLeft->right = L;  // Store in right
+        notLeft->left = nullptr;
+
         TreeNode* orNode = new TreeNode('+');
         orNode->left = notLeft;
         orNode->right = R;
         return orNode;
     }
 
-    // Non-implication node: recreate using transformed children
+    // For other binary operators, recursively process children
     TreeNode* out = new TreeNode(root->data);
-    out->left = L;
-    out->right = R;
+    out->left = IMPL_FREE(root->left);
+    out->right = IMPL_FREE(root->right);
     return out;
 }
 
@@ -43,59 +64,70 @@ TreeNode* IMPL_FREE(TreeNode* root) {
 TreeNode* NNF(TreeNode* root) {
     if (!root) return nullptr;
 
-    // Leaf (literal)
+    // Leaf (literal) - just copy
     if (!root->left && !root->right) {
         return new TreeNode(root->data);
     }
 
-    // If it's a negation, push it inwards
+    // Handle negation
     if (root->data == '~') {
-        TreeNode* child = NNF(root->left); // normalize the child first
+        TreeNode* child = getNegationChild(root);
 
-        if (!child) return new TreeNode('~');
+        if (!child) {
+            TreeNode* neg = new TreeNode('~');
+            neg->left = nullptr;
+            return neg;
+        }
 
         // Double negation: ~~p -> p
         if (child->data == '~') {
-            return NNF(child->left);
+            TreeNode* grandchild = getNegationChild(child);
+            if (grandchild) {
+                return NNF(grandchild);
+            }
+            return nullptr;
         }
 
-        // De Morgan: ~(p * q) -> ~p + ~q
+        // De Morgan: ~(p * q) -> (~p + ~q)
         if (child->data == '*') {
+            TreeNode* notLeft = new TreeNode('~');
+            notLeft->left = nullptr;
+            notLeft->right = child->left;
+
+            TreeNode* notRight = new TreeNode('~');
+            notRight->left = nullptr;
+            notRight->right = child->right;
+
             TreeNode* orNode = new TreeNode('+');
-
-            TreeNode* notP = new TreeNode('~');
-            notP->left = cloneNode(child->left);
-
-            TreeNode* notQ = new TreeNode('~');
-            notQ->left = cloneNode(child->right);
-
-            orNode->left = NNF(notP);
-            orNode->right = NNF(notQ);
+            orNode->left = NNF(notLeft);
+            orNode->right = NNF(notRight);
             return orNode;
         }
 
-        // De Morgan: ~(p + q) -> ~p * ~q
+        // De Morgan: ~(p + q) -> (~p * ~q)
         if (child->data == '+') {
+            TreeNode* notLeft = new TreeNode('~');
+            notLeft->left = nullptr;
+            notLeft->right = child->left;
+
+            TreeNode* notRight = new TreeNode('~');
+            notRight->left = nullptr;
+            notRight->right = child->right;
+
             TreeNode* andNode = new TreeNode('*');
-
-            TreeNode* notP = new TreeNode('~');
-            notP->left = cloneNode(child->left);
-
-            TreeNode* notQ = new TreeNode('~');
-            notQ->left = cloneNode(child->right);
-
-            andNode->left = NNF(notP);
-            andNode->right = NNF(notQ);
+            andNode->left = NNF(notLeft);
+            andNode->right = NNF(notRight);
             return andNode;
         }
 
-        // Negation of literal (or already atomic) -> ~child
+        // Negation of a literal: ~p (where p is an atom)
         TreeNode* neg = new TreeNode('~');
-        neg->left = NNF(child);
+        neg->left = nullptr;
+        neg->right = new TreeNode(child->data);
         return neg;
     }
 
-    // Non-negation operator: recursively normalize children
+    // For AND/OR operators, recursively process children
     TreeNode* out = new TreeNode(root->data);
     out->left = NNF(root->left);
     out->right = NNF(root->right);
@@ -106,9 +138,25 @@ TreeNode* NNF(TreeNode* root) {
 TreeNode* DISTR(TreeNode* root) {
     if (!root) return nullptr;
 
-    // Leaf or unary
+    // Leaf
     if (!root->left && !root->right) {
         return new TreeNode(root->data);
+    }
+
+    // Handle negation (literal ~p) - preserve structure
+    if (root->data == '~') {
+        TreeNode* out = new TreeNode('~');
+        out->left = nullptr;
+        out->right = cloneNode(root->right);
+        return out;
+    }
+
+    // If root is AND, just recurse on children
+    if (root->data == '*') {
+        TreeNode* out = new TreeNode('*');
+        out->left = DISTR(root->left);
+        out->right = DISTR(root->right);
+        return out;
     }
 
     // If root is OR, attempt distribution
@@ -116,45 +164,48 @@ TreeNode* DISTR(TreeNode* root) {
         TreeNode* L = DISTR(root->left);
         TreeNode* R = DISTR(root->right);
 
-        // p + (q * r) => (p + q) * (p + r)
-        if (R && R->data == '*') {
-            TreeNode* andNode = new TreeNode('*');
-
-            andNode->left = new TreeNode('+');
-            andNode->left->left  = cloneNode(L);
-            andNode->left->right = cloneNode(R->left);
-
-            andNode->right = new TreeNode('+');
-            andNode->right->left  = cloneNode(L);
-            andNode->right->right = cloneNode(R->right);
-
-            // recursively distribute the newly created AND
-            return DISTR(andNode);
-        }
-
-        // (p * q) + r => (p + r) * (q + r)
+        // (p * q) + r  =>  (p + r) * (q + r)
         if (L && L->data == '*') {
             TreeNode* andNode = new TreeNode('*');
 
-            andNode->left = new TreeNode('+');
-            andNode->left->left  = cloneNode(L->left);
-            andNode->left->right = cloneNode(R);
+            TreeNode* leftOr = new TreeNode('+');
+            leftOr->left = cloneNode(L->left);
+            leftOr->right = cloneNode(R);
 
-            andNode->right = new TreeNode('+');
-            andNode->right->left  = cloneNode(L->right);
-            andNode->right->right = cloneNode(R);
+            TreeNode* rightOr = new TreeNode('+');
+            rightOr->left = cloneNode(L->right);
+            rightOr->right = cloneNode(R);
 
-            return DISTR(andNode);
+            andNode->left = DISTR(leftOr);
+            andNode->right = DISTR(rightOr);
+            return andNode;
         }
 
-        // Nothing to distribute
+        // p + (q * r)  =>  (p + q) * (p + r)
+        if (R && R->data == '*') {
+            TreeNode* andNode = new TreeNode('*');
+
+            TreeNode* leftOr = new TreeNode('+');
+            leftOr->left = cloneNode(L);
+            leftOr->right = cloneNode(R->left);
+
+            TreeNode* rightOr = new TreeNode('+');
+            rightOr->left = cloneNode(L);
+            rightOr->right = cloneNode(R->right);
+
+            andNode->left = DISTR(leftOr);
+            andNode->right = DISTR(rightOr);
+            return andNode;
+        }
+
+        // No distribution needed
         TreeNode* orNode = new TreeNode('+');
         orNode->left = L;
         orNode->right = R;
         return orNode;
     }
 
-    // If it's AND or other binary operator, just recurse
+    // Fallback for other operators
     TreeNode* out = new TreeNode(root->data);
     out->left = DISTR(root->left);
     out->right = DISTR(root->right);
@@ -165,27 +216,40 @@ TreeNode* DISTR(TreeNode* root) {
 TreeNode* CNF(TreeNode* root) {
     if (!root) return nullptr;
 
-    if (!root->left && !root->right) return new TreeNode(root->data);
+    // Leaf
+    if (!root->left && !root->right) {
+        return new TreeNode(root->data);
+    }
 
-    if (root->data == '*') {
-        TreeNode* L = CNF(root->left);
-        TreeNode* R = CNF(root->right);
-        TreeNode* out = new TreeNode('*');
-        out->left = L;
-        out->right = R;
+    // Negation (literal ~p) - preserve structure
+    if (root->data == '~') {
+        TreeNode* out = new TreeNode('~');
+        out->left = nullptr;
+        out->right = cloneNode(root->right);
         return out;
     }
 
+    // AND: just recurse
+    if (root->data == '*') {
+        TreeNode* out = new TreeNode('*');
+        out->left = CNF(root->left);
+        out->right = CNF(root->right);
+        return out;
+    }
+
+    // OR: recurse then distribute
     if (root->data == '+') {
         TreeNode* L = CNF(root->left);
         TreeNode* R = CNF(root->right);
+
         TreeNode* orNode = new TreeNode('+');
-        orNode->left  = L;
+        orNode->left = L;
         orNode->right = R;
+
         return DISTR(orNode);
     }
 
-    // Fallback: copy node
+    // Fallback
     TreeNode* out = new TreeNode(root->data);
     out->left = CNF(root->left);
     out->right = CNF(root->right);
@@ -194,9 +258,8 @@ TreeNode* CNF(TreeNode* root) {
 
 // ---------- Full pipeline ----------
 TreeNode* toCNF(TreeNode* root) {
-    TreeNode* a = IMPL_FREE(root);
-    TreeNode* b = NNF(a);
-    TreeNode* c = CNF(b);
-    return c;
+    TreeNode* step1 = IMPL_FREE(root);
+    TreeNode* step2 = NNF(step1);
+    TreeNode* step3 = CNF(step2);
+    return step3;
 }
-
