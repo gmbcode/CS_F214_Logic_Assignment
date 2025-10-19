@@ -33,9 +33,9 @@ static TreeNode* buildTreeRecursive(const std::string& prefix, int& index) {
         node->left = buildTreeRecursive(prefix, index);
         node->right = buildTreeRecursive(prefix, index);
     } else if (isUnaryOperator(currentChar)) {
-        // If it's a unary operator, it has one child (we'll use the left).
+        // If it's a unary operator, it has one child (we'll use the right).
         node->left = nullptr;
-        node->right = buildTreeRecursive(prefix, index); // Right child is always null for unary ops.
+        node->right = buildTreeRecursive(prefix, index); // Left child is always null for unary ops.
     }
     // else, it's an operand (a leaf node), and its children are already nullptr.
 
