@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,
+initial-scale=1.0">
     <title>Propositional Logic Parser - Analysis</title>
     <style>
         * {
@@ -12,8 +13,10 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana,
+            sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2
+            100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -28,7 +31,8 @@
         }
 
         header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2
+            100%);
             color: white;
             padding: 40px;
             text-align: center;
@@ -62,7 +66,8 @@
         }
 
         .task-card {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2
+            100%);
             border-radius: 15px;
             padding: 25px;
             transition: transform 0.3s, box-shadow 0.3s;
@@ -189,14 +194,22 @@
 <div class="container">
     <header>
         <h1>🔬 Propositional Logic Assignment</h1>
-        <p>Algorithm Analysis & Implementation Documentation</p>
+        <p>Algorithm Analysis & Implementation
+            Documentation</p>
     </header>
 
     <div class="content">
         <div class="intro">
             <h2>Project Overview</h2>
-            <p>This project implements a comprehensive propositional logic parser and analyzer capable of handling complex logical formulas. The system converts infix expressions to prefix notation, builds parse trees, performs CNF conversion, and validates logical formulas.</p>
-            <p style="margin-top: 15px;"><strong>Key Features:</strong> Support for multi-character variables, efficient tree construction, CNF conversion with parse tree generation, and tautology detection.</p>
+            <p>This project implements a comprehensive
+                propositional logic parser and analyzer capable of handling complex
+                logical formulas. The system converts infix expressions to prefix
+                notation, builds parse trees, performs CNF conversion, and validates
+                logical formulas.</p>
+            <p style="margin-top: 15px;"><strong>Key
+                Features:</strong> Support for multi-character variables,
+                efficient tree construction, CNF conversion with parse tree generation,
+                and tautology detection.</p>
         </div>
 
         <div class="stats-section">
@@ -208,11 +221,13 @@
                 </div>
                 <div class="stat-card">
                     <div class="stat-number">O(n)</div>
-                    <div class="stat-label">Average Complexity</div>
+                    <div class="stat-label">Average
+                        Complexity</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-number">1000+</div>
-                    <div class="stat-label">Variables Supported</div>
+                    <div class="stat-label">Variables
+                        Supported</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-number">16MB</div>
@@ -223,45 +238,78 @@
 
         <h2>Task Analysis</h2>
         <div class="task-grid">
-            <a href="https://github.com/gmbcode/CS_F214_Logic_Assignment/blob/latest/Q1.cpp" class="task-card">
+            <a
+                    href="https://github.com/gmbcode/CS_F214_Logic_Assignment/blob/latest/Q1.cpp"
+                    class="task-card">
                 <div class="task-number">Task 1</div>
-                <div class="task-title">Infix to Prefix Conversion</div>
-                <div class="task-desc">Converts propositional logic expressions from infix to prefix notation using a modified Shunting Yard algorithm.</div>
+                <div class="task-title">Infix to Prefix
+                    Conversion</div>
+                <div class="task-desc">Converts propositional
+                    logic expressions from infix to prefix notation using a modified
+                    Shunting Yard algorithm.<br><strong>Time:</strong> O(N)<br><strong>Space:</strong> O(N)</div>
             </a>
 
-            <a href="https://github.com/gmbcode/CS_F214_Logic_Assignment/blob/latest/Q2.cpp" class="task-card">
+            <a
+                    href="https://github.com/gmbcode/CS_F214_Logic_Assignment/blob/latest/Q2.cpp"
+                    class="task-card">
                 <div class="task-number">Task 2</div>
-                <div class="task-title">Parse Tree Construction</div>
-                <div class="task-desc">Builds a rooted binary parse tree from prefix expressions with support for multi-character variables.</div>
+                <div class="task-title">Parse Tree
+                    Construction</div>
+                <div class="task-desc">Builds a rooted binary
+                    parse tree from prefix expressions with support for multi-character
+                    variables.<br><strong>Time:</strong> O(T)<br><strong>Space:</strong> O(T)</div>
             </a>
 
-            <a href="https://github.com/gmbcode/CS_F214_Logic_Assignment/blob/latest/Q3.cpp" class="task-card">
+            <a
+                    href="https://github.com/gmbcode/CS_F214_Logic_Assignment/blob/latest/Q3.cpp"
+                    class="task-card">
                 <div class="task-number">Task 3</div>
-                <div class="task-title">Infix Reconstruction</div>
-                <div class="task-desc">Traverses the parse tree using in-order traversal to reconstruct the original infix expression.</div>
+                <div class="task-title">Infix
+                    Reconstruction</div>
+                <div class="task-desc">Traverses the parse tree
+                    using in-order traversal to reconstruct the original infix
+                    expression.<br><strong>Time:</strong> O(M)<br><strong>Space:</strong> O(H)</div>
             </a>
 
-            <a href="https://github.com/gmbcode/CS_F214_Logic_Assignment/blob/latest/Q4.cpp" class="task-card">
+            <a
+                    href="https://github.com/gmbcode/CS_F214_Logic_Assignment/blob/latest/Q4.cpp"
+                    class="task-card">
                 <div class="task-number">Task 4</div>
-                <div class="task-title">Tree Height Computation</div>
-                <div class="task-desc">Calculates the height of the parse tree using recursive depth-first traversal.</div>
+                <div class="task-title">Tree Height
+                    Computation</div>
+                <div class="task-desc">Calculates the height of
+                    the parse tree using recursive depth-first traversal.<br><strong>Time:</strong> O(M)<br><strong>Space:</strong> O(H)</div>
             </a>
-            <a href="https://github.com/gmbcode/CS_F214_Logic_Assignment/blob/latest/Q5.cpp" class="task-card">
+            <a
+                    href="https://github.com/gmbcode/CS_F214_Logic_Assignment/blob/latest/Q5.cpp"
+                    class="task-card">
                 <div class="task-number">Task 5</div>
-                <div class="task-title">Truth Value Evaluation</div>
-                <div class="task-desc">Evaluates propositional formulas given truth assignments using bottom-up tree traversal.</div>
+                <div class="task-title">Truth Value
+                    Evaluation</div>
+                <div class="task-desc">Evaluates propositional
+                    formulas given truth assignments using bottom-up tree
+                    traversal.<br><strong>Time:</strong> O(M)<br><strong>Space:</strong> O(H+V)</div>
             </a>
 
-            <a href="https://github.com/gmbcode/CS_F214_Logic_Assignment/blob/latest/Q6.cpp" class="task-card">
+            <a
+                    href="https://github.com/gmbcode/CS_F214_Logic_Assignment/blob/latest/Q6.cpp"
+                    class="task-card">
                 <div class="task-number">Task 6</div>
                 <div class="task-title">CNF Conversion</div>
-                <div class="task-desc">Converts any propositional formula to Conjunctive Normal Form using IMPL_FREE, NNF, and distribution.</div>
+                <div class="task-desc">Converts any propositional
+                    formula to Conjunctive Normal Form using IMPL_FREE, NNF, and
+                    distribution.<br><strong>Time:</strong> Exponential<br><strong>Space:</strong> Exponential</div>
             </a>
 
-            <a href="https://github.com/gmbcode/CS_F214_Logic_Assignment/blob/latest/Q7.cpp" class="task-card">
+            <a
+                    href="https://github.com/gmbcode/CS_F214_Logic_Assignment/blob/latest/Q7.cpp"
+                    class="task-card">
                 <div class="task-number">Task 7</div>
-                <div class="task-title">CNF Validity Check</div>
-                <div class="task-desc">Validates CNF formulas and identifies tautological clauses by checking for complementary literals.</div>
+                <div class="task-title">CNF Validity
+                    Check</div>
+                <div class="task-desc">Validates CNF formulas and
+                    identifies tautological clauses by checking for complementary
+                    literals.<br><strong>Time:</strong> O(M)<br><strong>Space:</strong> O(M)</div>
             </a>
         </div>
 
@@ -270,20 +318,28 @@
             <h2>Authors</h2>
             <div class="authors-grid">
                 <div class="author-card">
-                    <div class="author-name">Bhavya Shah</div>
-                    <div class="author-id">2024A7PS0139H</div>
+                    <div class="author-name">Bhavya
+                        Shah</div>
+                    <div
+                            class="author-id">2024A7PS0139H</div>
                 </div>
                 <div class="author-card">
-                    <div class="author-name">Prathamesh Patil</div>
-                    <div class="author-id">2024A7PS0052H</div>
+                    <div class="author-name">Prathamesh
+                        Patil</div>
+                    <div
+                            class="author-id">2024A7PS0052H</div>
                 </div>
                 <div class="author-card">
-                    <div class="author-name">Sahitya Sharma</div>
-                    <div class="author-id">2024A7PS0096H</div>
+                    <div class="author-name">Sahitya
+                        Sharma</div>
+                    <div
+                            class="author-id">2024A7PS0096H</div>
                 </div>
                 <div class="author-card">
-                    <div class="author-name">Krish Vasa</div>
-                    <div class="author-id">2024A7PS0106H</div>
+                    <div class="author-name">Krish
+                        Vasa</div>
+                    <div
+                            class="author-id">2024A7PS0106H</div>
                 </div>
             </div>
         </div>
@@ -292,7 +348,8 @@
 
 
     <footer>
-        <p>Logic Assignment 2025 | Algorithm Analysis & Implementation</p>
+        <p>Logic Assignment 2025 | Algorithm Analysis &
+            Implementation</p>
     </footer>
 </div>
 </body>
