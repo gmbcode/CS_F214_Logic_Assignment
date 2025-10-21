@@ -14,7 +14,7 @@ TreeNode* cloneNode(TreeNode* node) {
 
 // Helper to get the child of a negation operator (stored in right)
 TreeNode* getNegationChild(TreeNode* node) {
-    if (!node || node->data != '~') return nullptr;
+    if (!node || node->data != "~") return nullptr;
     return node->right;
 }
 
@@ -28,26 +28,26 @@ TreeNode* IMPL_FREE(TreeNode* root) {
     }
 
     // Handle negation (unary operator with operand in right)
-    if (root->data == '~') {
+    if (root->data == "~") {
         TreeNode* child = getNegationChild(root);
         TreeNode* transformedChild = IMPL_FREE(child);
 
-        TreeNode* notNode = new TreeNode('~');
+        TreeNode* notNode = new TreeNode("~");
         notNode->right = transformedChild;  // Store in right for proper inorder
         notNode->left = nullptr;
         return notNode;
     }
 
     // Handle implication: p > q  ≡  ~p + q
-    if (root->data == '>') {
+    if (root->data == ">") {
         TreeNode* L = IMPL_FREE(root->left);
         TreeNode* R = IMPL_FREE(root->right);
 
-        TreeNode* notLeft = new TreeNode('~');
+        TreeNode* notLeft = new TreeNode("~");
         notLeft->right = L;  // Store in right
         notLeft->left = nullptr;
 
-        TreeNode* orNode = new TreeNode('+');
+        TreeNode* orNode = new TreeNode("+");
         orNode->left = notLeft;
         orNode->right = R;
         return orNode;
@@ -70,17 +70,17 @@ TreeNode* NNF(TreeNode* root) {
     }
 
     // Handle negation
-    if (root->data == '~') {
+    if (root->data == "~") {
         TreeNode* child = getNegationChild(root);
 
         if (!child) {
-            TreeNode* neg = new TreeNode('~');
+            TreeNode* neg = new TreeNode("~");
             neg->left = nullptr;
             return neg;
         }
 
         // Double negation: ~~p -> p
-        if (child->data == '~') {
+        if (child->data == "~") {
             TreeNode* grandchild = getNegationChild(child);
             if (grandchild) {
                 return NNF(grandchild);
@@ -89,39 +89,39 @@ TreeNode* NNF(TreeNode* root) {
         }
 
         // De Morgan: ~(p * q) -> (~p + ~q)
-        if (child->data == '*') {
-            TreeNode* notLeft = new TreeNode('~');
+        if (child->data == "*") {
+            TreeNode* notLeft = new TreeNode("~");
             notLeft->left = nullptr;
             notLeft->right = child->left;
 
-            TreeNode* notRight = new TreeNode('~');
+            TreeNode* notRight = new TreeNode("~");
             notRight->left = nullptr;
             notRight->right = child->right;
 
-            TreeNode* orNode = new TreeNode('+');
+            TreeNode* orNode = new TreeNode("+");
             orNode->left = NNF(notLeft);
             orNode->right = NNF(notRight);
             return orNode;
         }
 
         // De Morgan: ~(p + q) -> (~p * ~q)
-        if (child->data == '+') {
-            TreeNode* notLeft = new TreeNode('~');
+        if (child->data == "+") {
+            TreeNode* notLeft = new TreeNode("~");
             notLeft->left = nullptr;
             notLeft->right = child->left;
 
-            TreeNode* notRight = new TreeNode('~');
+            TreeNode* notRight = new TreeNode("~");
             notRight->left = nullptr;
             notRight->right = child->right;
 
-            TreeNode* andNode = new TreeNode('*');
+            TreeNode* andNode = new TreeNode("*");
             andNode->left = NNF(notLeft);
             andNode->right = NNF(notRight);
             return andNode;
         }
 
         // Negation of a literal: ~p (where p is an atom)
-        TreeNode* neg = new TreeNode('~');
+        TreeNode* neg = new TreeNode("~");
         neg->left = nullptr;
         neg->right = new TreeNode(child->data);
         return neg;
@@ -144,35 +144,35 @@ TreeNode* DISTR(TreeNode* root) {
     }
 
     // Handle negation (literal ~p) - preserve structure
-    if (root->data == '~') {
-        TreeNode* out = new TreeNode('~');
+    if (root->data == "~") {
+        TreeNode* out = new TreeNode("~");
         out->left = nullptr;
         out->right = cloneNode(root->right);
         return out;
     }
 
     // If root is AND, just recurse on children
-    if (root->data == '*') {
-        TreeNode* out = new TreeNode('*');
+    if (root->data == "*") {
+        TreeNode* out = new TreeNode("*");
         out->left = DISTR(root->left);
         out->right = DISTR(root->right);
         return out;
     }
 
     // If root is OR, attempt distribution
-    if (root->data == '+') {
+    if (root->data == "+") {
         TreeNode* L = DISTR(root->left);
         TreeNode* R = DISTR(root->right);
 
         // (p * q) + r  =>  (p + r) * (q + r)
-        if (L && L->data == '*') {
-            TreeNode* andNode = new TreeNode('*');
+        if (L && L->data == "*") {
+            TreeNode* andNode = new TreeNode("*");
 
-            TreeNode* leftOr = new TreeNode('+');
+            TreeNode* leftOr = new TreeNode("+");
             leftOr->left = cloneNode(L->left);
             leftOr->right = cloneNode(R);
 
-            TreeNode* rightOr = new TreeNode('+');
+            TreeNode* rightOr = new TreeNode("+");
             rightOr->left = cloneNode(L->right);
             rightOr->right = cloneNode(R);
 
@@ -182,14 +182,14 @@ TreeNode* DISTR(TreeNode* root) {
         }
 
         // p + (q * r)  =>  (p + q) * (p + r)
-        if (R && R->data == '*') {
-            TreeNode* andNode = new TreeNode('*');
+        if (R && R->data == "*") {
+            TreeNode* andNode = new TreeNode("*");
 
-            TreeNode* leftOr = new TreeNode('+');
+            TreeNode* leftOr = new TreeNode("+");
             leftOr->left = cloneNode(L);
             leftOr->right = cloneNode(R->left);
 
-            TreeNode* rightOr = new TreeNode('+');
+            TreeNode* rightOr = new TreeNode("+");
             rightOr->left = cloneNode(L);
             rightOr->right = cloneNode(R->right);
 
@@ -199,7 +199,7 @@ TreeNode* DISTR(TreeNode* root) {
         }
 
         // No distribution needed
-        TreeNode* orNode = new TreeNode('+');
+        TreeNode* orNode = new TreeNode("+");
         orNode->left = L;
         orNode->right = R;
         return orNode;
@@ -222,27 +222,27 @@ TreeNode* CNF(TreeNode* root) {
     }
 
     // Negation (literal ~p) - preserve structure
-    if (root->data == '~') {
-        TreeNode* out = new TreeNode('~');
+    if (root->data == "~") {
+        TreeNode* out = new TreeNode("~");
         out->left = nullptr;
         out->right = cloneNode(root->right);
         return out;
     }
 
     // AND: just recurse
-    if (root->data == '*') {
-        TreeNode* out = new TreeNode('*');
+    if (root->data == "*") {
+        TreeNode* out = new TreeNode("*");
         out->left = CNF(root->left);
         out->right = CNF(root->right);
         return out;
     }
 
     // OR: recurse then distribute
-    if (root->data == '+') {
+    if (root->data == "+") {
         TreeNode* L = CNF(root->left);
         TreeNode* R = CNF(root->right);
 
-        TreeNode* orNode = new TreeNode('+');
+        TreeNode* orNode = new TreeNode("+");
         orNode->left = L;
         orNode->right = R;
 

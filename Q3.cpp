@@ -1,15 +1,8 @@
+// Q3.cpp (updated)
 #include "Q3.h"
+#include "Q2.h"
 #include <iostream>
-#include <cctype> // For isalnum
-// Helper function to check if a character is a binary operator
-static bool isBinaryOperator(char c) {
-    return (c == '+' || c == '*' || c == '>');
-}
 
-// Helper function to check if a character is a unary operator
-static bool isUnaryOperator(char c) {
-    return c == '~';
-}
 void printInfix(TreeNode* root) {
     if (root == nullptr) {
         return;

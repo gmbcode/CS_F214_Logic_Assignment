@@ -5,35 +5,43 @@
 #include <string>
 #include <map>
 
-bool evaluateTruthValue(TreeNode* root, const std::map<char, bool>& truthValues) {
+using std::string;
+using std::map;
+
+bool evaluateTruthValue(TreeNode* root, const map<string, bool>& truthValues) {
     if (root == nullptr) {
-        return 0;
+        return false;
     }
 
+    // Check if it's an operator
+    if (root->data == "~" || root->data == "+" ||
+        root->data == "*" || root->data == ">") {
 
-    if (isalnum(root->data)) {
-        try {
-            return truthValues.at(root->data);
+        // Handle unary negation operator
+        if (root->data == "~") {
+            bool rightValue = evaluateTruthValue(root->right, truthValues);
+            return !rightValue;
         }
-        catch (const std::out_of_range& e) {
-            throw std::runtime_error("Truth value for atom '" + std::string(1, root->data) + "' not found in map.");
-        }
-    }
 
+        // Handle binary operators
+        bool leftValue = evaluateTruthValue(root->left, truthValues);
+        bool rightValue = evaluateTruthValue(root->right, truthValues);
 
-    bool rightValue = evaluateTruthValue(root->right, truthValues);
-    if (root->data == '~') {
-        return !rightValue;
-    }
-    bool leftValue = evaluateTruthValue(root->left, truthValues);
-    switch (root->data) {
-        case '+':
+        if (root->data == "+") {
             return leftValue || rightValue;
-        case '*':
+        } else if (root->data == "*") {
             return leftValue && rightValue;
-        case '>':
+        } else if (root->data == ">") {
             return !leftValue || rightValue;
-        default:
-            throw std::runtime_error("Unknown operator in tree: '" + std::string(1, root->data) + "'");
+        }
+        }
+
+    // It's a variable/atom - look up its truth value
+    try {
+        return truthValues.at(root->data);
+    }
+    catch (const std::out_of_range& e) {
+        throw std::runtime_error("Truth value for atom '" + root->data + "' not found in map.");
     }
 }
+

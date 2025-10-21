@@ -1,49 +1,79 @@
+// Q2.cpp
 #include "Q2.h"
 #include <iostream>
-#include <cctype> // For isalnum
+#include <cctype>
 
-// Helper function to check if a character is a binary operator
-static bool isBinaryOperator(char c) {
-    return (c == '+' || c == '*' || c == '>');
+// Helper function to check if a string is a binary operator
+bool isBinaryOperator(const string& s) {
+    return (s == "+" || s == "*" || s == ">");
 }
 
-// Helper function to check if a character is a unary operator
-static bool isUnaryOperator(char c) {
-    return c == '~';
+// Helper function to check if a string is a unary operator
+bool isUnaryOperator(const string& s) {
+    return s == "~";
 }
 
-// Recursive function to build the tree.
-// It processes the string and advances the index.
-static TreeNode* buildTreeRecursive(const std::string& prefix, int& index) {
-    // Base case: if we are out of bounds, return null
+// Helper function to extract the next token from prefix string
+static string getNextToken(const string& prefix, int& index) {
     if (index >= prefix.length()) {
+        return "";
+    }
+
+    // Skip whitespace
+    while (index < prefix.length() && isspace(prefix[index])) {
+        index++;
+    }
+
+    if (index >= prefix.length()) {
+        return "";
+    }
+
+    // Check for operators (single character)
+    char c = prefix[index];
+    if (c == '+' || c == '*' || c == '>' || c == '~' || c == '(' || c == ')') {
+        index++;
+        return string(1, c);
+    }
+
+    // Extract variable name (alphanumeric sequence)
+    string token = "";
+    while (index < prefix.length() && (isalnum(prefix[index]) || prefix[index] == '_')) {
+        token += prefix[index];
+        index++;
+    }
+
+    return token;
+}
+
+// Recursive function to build the tree
+static TreeNode* buildTreeRecursive(const string& prefix, int& index) {
+    // Get the next token
+    string token = getNextToken(prefix, index);
+
+    if (token.empty()) {
         return nullptr;
     }
 
-    // 1. Get the current character and advance the index
-    char currentChar = prefix[index];
-    index++;
+    // Create a new node with this token
+    TreeNode* node = new TreeNode(token);
 
-    // 2. Create a new node with this character
-    TreeNode* node = new TreeNode(currentChar);
-
-    // 3. Recursively build the rest of the tree
-    if (isBinaryOperator(currentChar)) {
-        // If it's a binary operator, it must have two children.
+    // Recursively build the rest of the tree
+    if (isBinaryOperator(token)) {
+        // Binary operator: has two children
         node->left = buildTreeRecursive(prefix, index);
         node->right = buildTreeRecursive(prefix, index);
-    } else if (isUnaryOperator(currentChar)) {
-        // If it's a unary operator, it has one child (we'll use the left).
+    } else if (isUnaryOperator(token)) {
+        // Unary operator: has one child (stored in right)
         node->left = nullptr;
-        node->right = buildTreeRecursive(prefix, index);; // Right child is always null for unary ops.
+        node->right = buildTreeRecursive(prefix, index);
     }
-    // else, it's an operand (a leaf node), and its children are already nullptr.
+    // else, it's an operand (leaf node), children are already nullptr
 
     return node;
 }
 
-// Public-facing function to start the tree-building process.
-TreeNode* buildParseTree(const std::string& prefix) {
+// Public-facing function to start the tree-building process
+TreeNode* buildParseTree(const string& prefix) {
     if (prefix.empty()) {
         return nullptr;
     }
@@ -51,10 +81,7 @@ TreeNode* buildParseTree(const std::string& prefix) {
     return buildTreeRecursive(prefix, index);
 }
 
-// Prints the tree using an in-order traversal to get infix notation.
-
-
-// Deletes the tree using a post-order traversal to avoid dangling pointers.
+// Deletes the tree using post-order traversal
 void deleteTree(TreeNode* root) {
     if (root == nullptr) {
         return;
