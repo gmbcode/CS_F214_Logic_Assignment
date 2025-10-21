@@ -1,4 +1,12 @@
 // Q1.cpp
+/**
+ * @file Q1.cpp
+ * @brief Implementation file for converting infix propositional logic expressions to prefix notation.
+ *
+ * Contains helper functions for operator priority, operator identification,
+ * token extraction, and the main infix-to-prefix conversion algorithm.
+ */
+
 #include "Q1.h"
 #include <vector>
 #include <string>
@@ -12,7 +20,18 @@ using std::vector;
 using std::stack;
 using std::reverse;
 
-// Returns the priority of a logical operator
+/**
+ * @brief Returns the priority (precedence) of a logical operator.
+ *
+ * Higher numbers indicate higher priority.
+ * - `~` (Negation): 4
+ * - `*` (AND): 3
+ * - `+` (OR): 2
+ * - `>` (Implication): 1
+ *
+ * @param op The operator string (e.g., "~", "*", "+", ">").
+ * @return int The priority level of the operator, or -1 if the string is not a recognized operator.
+ */
 int priority_order(const string& op) {
     if (op == "~") return 4; // Negation
     if (op == "*") return 3; // AND
@@ -21,12 +40,33 @@ int priority_order(const string& op) {
     return -1; // Not an operator
 }
 
-// Checks if a string is a logical operator
+/**
+ * @brief Checks if a given string is a recognized logical operator.
+ *
+ * Recognized operators are: `~` (Negation), `*` (AND), `+` (OR), `>` (Implication).
+ *
+ * @param s The string to check.
+ * @return true if the string is one of the recognized operators, false otherwise.
+ */
 bool isOperator(const string& s) {
     return (s == "~" || s == "*" || s == "+" || s == ">");
 }
 
-// Helper function to extract the next token from infix string
+/**
+ * @brief Extracts the next token (variable, operator, or parenthesis) from an infix expression string.
+ *
+ * This function handles whitespace skipping and can scan either left-to-right or right-to-left.
+ * Variables are strings of alphanumeric characters and underscores.
+ * Operators and parentheses are single-character tokens.
+ *
+ * @param infix The infix expression string.
+ * @param index A reference to the current position (index) in the string. This index will be modified
+ * to point past the extracted token (or before it, if scanning in reverse).
+ * @param reverse A boolean flag. If false (default), scans left-to-right (index increases).
+ * If true, scans right-to-left (index decreases).
+ * @return string The extracted token. Returns an empty string if the end (or beginning, if reverse)
+ * of the string is reached.
+ */
 string getNextToken(const string& infix, int& index, bool reverse = false) {
     if (reverse) {
         // For right-to-left scanning
@@ -85,7 +125,17 @@ string getNextToken(const string& infix, int& index, bool reverse = false) {
     }
 }
 
-// Infix to Prefix conversion for Propositional Logic expressions
+/**
+ * @brief Converts a propositional logic expression from infix notation to prefix (Polish) notation.
+ *
+ * This implementation uses a modified shunting-yard algorithm that scans the
+ * infix string from right to left to produce the prefix notation.
+ * Tokens (operators, operands, parentheses) are expected to be separated by spaces
+ * in the output string.
+ *
+ * @param infix The infix expression string (e.g., "p > (q * ~r)").
+ * @return string The equivalent prefix expression string (e.g., "> p * q ~ r").
+ */
 string infixToPrefix(string infix) {
     stack<string> st;  // Changed from stack<char> to stack<string>
     vector<string> prefix_tokens;  // Store tokens instead of characters
