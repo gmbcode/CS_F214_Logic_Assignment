@@ -1,0 +1,199 @@
+\doxysection{File\+Utility.\+cpp File Reference}
+\hypertarget{_file_utility_8cpp}{}\label{_file_utility_8cpp}\index{FileUtility.cpp@{FileUtility.cpp}}
+
+
+Implementation file for utilities that read DIMACS CNF files and build expression parse trees.  
+
+
+{\ttfamily \#include "{}File\+Utility.\+h"{}}\newline
+{\ttfamily \#include "{}Q2.\+h"{}}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$map$>$}\newline
+{\ttfamily \#include $<$cstdlib$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{_file_utility_8cpp_a4fe4af7efd412c54ce8d507af5fb0d1e}{read\+CNFFile}} (const string \&filename, vector$<$ vector$<$ int $>$ $>$ \&clauses, int \&num\+Vars, int \&num\+Clauses)
+\begin{DoxyCompactList}\small\item\em Reads a DIMACS CNF file and parses its clauses. \end{DoxyCompactList}\item 
+map$<$ int, string $>$ \mbox{\hyperlink{_file_utility_8cpp_a397558edbd0c5e4fa4ec0649143eda7d}{create\+Var\+Map}} (int num\+Vars, const string \&prefix)
+\begin{DoxyCompactList}\small\item\em Creates a mapping from integer variable IDs to string names. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_file_utility_8cpp_a8be462084333525c3324e9c78322a879}{build\+Literal\+Node}} (int literal, const map$<$ int, string $>$ \&var\+Map)
+\begin{DoxyCompactList}\small\item\em Builds a \doxylink{struct_tree_node}{Tree\+Node} for a single literal. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_file_utility_8cpp_afdd8aab2e471a83333111c99dfeeb9e2}{build\+Clause\+Node}} (const vector$<$ int $>$ \&clause, const map$<$ int, string $>$ \&var\+Map)
+\begin{DoxyCompactList}\small\item\em Builds a clause subtree from a vector of literals. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_file_utility_8cpp_a3e86eef122439a1d57856ce992928c20}{build\+Parse\+Tree\+From\+Clauses}} (const vector$<$ vector$<$ int $>$ $>$ \&clauses, const map$<$ int, string $>$ \&var\+Map)
+\begin{DoxyCompactList}\small\item\em Builds a complete parse tree from a vector of clauses. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_file_utility_8cpp_aad8b7cd286eaf2783b047bf42e44f7b8}{build\+Parse\+Tree\+From\+File}} (const string \&filename)
+\begin{DoxyCompactList}\small\item\em Main function to build a parse tree directly from a CNF file. \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{_file_utility_8cpp_aabd887e20af24d898a75ef0797be85a9}{cnf\+File\+To\+Infix}} (const string \&filename)
+\begin{DoxyCompactList}\small\item\em Converts a CNF file into a single infix expression string. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation file for utilities that read DIMACS CNF files and build expression parse trees. 
+
+This file provides a set of functions to parse standard DIMACS CNF (Conjunctive Normal Form) files, which represent boolean satisfiability problems. It includes functionality to read the file, create a mapping from integer variables to string names, and then construct an in-\/memory expression tree ({\ttfamily \doxylink{struct_tree_node}{Tree\+Node}}) that represents the CNF formula. It also provides a function to convert the CNF file directly to an infix string. 
+
+\label{doc-func-members}
+\Hypertarget{_file_utility_8cpp_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{_file_utility_8cpp_afdd8aab2e471a83333111c99dfeeb9e2}\index{FileUtility.cpp@{FileUtility.cpp}!buildClauseNode@{buildClauseNode}}
+\index{buildClauseNode@{buildClauseNode}!FileUtility.cpp@{FileUtility.cpp}}
+\doxysubsubsection{\texorpdfstring{buildClauseNode()}{buildClauseNode()}}
+{\footnotesize\ttfamily \label{_file_utility_8cpp_afdd8aab2e471a83333111c99dfeeb9e2} 
+\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*} build\+Clause\+Node (\begin{DoxyParamCaption}\item[{const vector$<$ int $>$ \&}]{clause}{, }\item[{const map$<$ int, string $>$ \&}]{var\+Map}{}\end{DoxyParamCaption})}
+
+
+
+Builds a clause subtree from a vector of literals. 
+
+A clause is a disjunction (\textquotesingle{}+\textquotesingle{}) of literals. This function constructs a right-\/associative tree of OR nodes. For example, (a + b + c) is built as (a + (b + c)).
+
+
+\begin{DoxyParams}{Parameters}
+{\em clause} & A vector of integers representing the literals in the clause. \\
+\hline
+{\em var\+Map} & The map from integer IDs to string variable names. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Tree\+Node\texorpdfstring{$\ast$}{*} A pointer to the root of the clause subtree. Returns nullptr if the clause is empty. 
+\end{DoxyReturn}
+\Hypertarget{_file_utility_8cpp_a8be462084333525c3324e9c78322a879}\index{FileUtility.cpp@{FileUtility.cpp}!buildLiteralNode@{buildLiteralNode}}
+\index{buildLiteralNode@{buildLiteralNode}!FileUtility.cpp@{FileUtility.cpp}}
+\doxysubsubsection{\texorpdfstring{buildLiteralNode()}{buildLiteralNode()}}
+{\footnotesize\ttfamily \label{_file_utility_8cpp_a8be462084333525c3324e9c78322a879} 
+\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*} build\+Literal\+Node (\begin{DoxyParamCaption}\item[{int}]{literal}{, }\item[{const map$<$ int, string $>$ \&}]{var\+Map}{}\end{DoxyParamCaption})}
+
+
+
+Builds a \doxylink{struct_tree_node}{Tree\+Node} for a single literal. 
+
+A literal can be positive (e.\+g., 5) or negative (e.\+g., -\/5). This function creates a simple \doxylink{struct_tree_node}{Tree\+Node} for a positive literal or a negation (\textquotesingle{}\texorpdfstring{$\sim$}{\string~}\textquotesingle{}) node with an atom as its right child for a negative literal.
+
+
+\begin{DoxyParams}{Parameters}
+{\em literal} & The integer representing the literal. \\
+\hline
+{\em var\+Map} & The map from integer IDs to string variable names. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Tree\+Node\texorpdfstring{$\ast$}{*} A pointer to the newly created literal node. 
+\end{DoxyReturn}
+\Hypertarget{_file_utility_8cpp_a3e86eef122439a1d57856ce992928c20}\index{FileUtility.cpp@{FileUtility.cpp}!buildParseTreeFromClauses@{buildParseTreeFromClauses}}
+\index{buildParseTreeFromClauses@{buildParseTreeFromClauses}!FileUtility.cpp@{FileUtility.cpp}}
+\doxysubsubsection{\texorpdfstring{buildParseTreeFromClauses()}{buildParseTreeFromClauses()}}
+{\footnotesize\ttfamily \label{_file_utility_8cpp_a3e86eef122439a1d57856ce992928c20} 
+\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*} build\+Parse\+Tree\+From\+Clauses (\begin{DoxyParamCaption}\item[{const vector$<$ vector$<$ int $>$ $>$ \&}]{clauses}{, }\item[{const map$<$ int, string $>$ \&}]{var\+Map}{}\end{DoxyParamCaption})}
+
+
+
+Builds a complete parse tree from a vector of clauses. 
+
+A CNF formula is a conjunction (\textquotesingle{}\texorpdfstring{$\ast$}{*}\textquotesingle{}) of clauses. This function constructs a right-\/associative tree of AND nodes. For example, (c1 \texorpdfstring{$\ast$}{*} c2 \texorpdfstring{$\ast$}{*} c3) is built as (c1 \texorpdfstring{$\ast$}{*} (c2 \texorpdfstring{$\ast$}{*} c3)).
+
+
+\begin{DoxyParams}{Parameters}
+{\em clauses} & A vector of vectors, where each inner vector is a clause. \\
+\hline
+{\em var\+Map} & The map from integer IDs to string variable names. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Tree\+Node\texorpdfstring{$\ast$}{*} A pointer to the root of the complete CNF parse tree. 
+\end{DoxyReturn}
+\Hypertarget{_file_utility_8cpp_aad8b7cd286eaf2783b047bf42e44f7b8}\index{FileUtility.cpp@{FileUtility.cpp}!buildParseTreeFromFile@{buildParseTreeFromFile}}
+\index{buildParseTreeFromFile@{buildParseTreeFromFile}!FileUtility.cpp@{FileUtility.cpp}}
+\doxysubsubsection{\texorpdfstring{buildParseTreeFromFile()}{buildParseTreeFromFile()}}
+{\footnotesize\ttfamily \label{_file_utility_8cpp_aad8b7cd286eaf2783b047bf42e44f7b8} 
+\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*} build\+Parse\+Tree\+From\+File (\begin{DoxyParamCaption}\item[{const string \&}]{filename}{}\end{DoxyParamCaption})}
+
+
+
+Main function to build a parse tree directly from a CNF file. 
+
+This function orchestrates the entire process\+: reading the file, creating the variable map, and building the final parse tree.
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The path to the CNF file. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Tree\+Node\texorpdfstring{$\ast$}{*} A pointer to the root of the generated parse tree, or nullptr on failure. 
+\end{DoxyReturn}
+\Hypertarget{_file_utility_8cpp_aabd887e20af24d898a75ef0797be85a9}\index{FileUtility.cpp@{FileUtility.cpp}!cnfFileToInfix@{cnfFileToInfix}}
+\index{cnfFileToInfix@{cnfFileToInfix}!FileUtility.cpp@{FileUtility.cpp}}
+\doxysubsubsection{\texorpdfstring{cnfFileToInfix()}{cnfFileToInfix()}}
+{\footnotesize\ttfamily \label{_file_utility_8cpp_aabd887e20af24d898a75ef0797be85a9} 
+string cnf\+File\+To\+Infix (\begin{DoxyParamCaption}\item[{const string \&}]{filename}{}\end{DoxyParamCaption})}
+
+
+
+Converts a CNF file into a single infix expression string. 
+
+This function provides an alternative way to process a CNF file by converting it into a string representation like "{}((\texorpdfstring{$\sim$}{\string~}v1+v2))\texorpdfstring{$\ast$}{*}(v3+v4))"{}. This can be useful for compatibility with parsers that expect infix notation.
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The path to the CNF file. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string The infix expression string, or an empty string on failure. 
+\end{DoxyReturn}
+\Hypertarget{_file_utility_8cpp_a397558edbd0c5e4fa4ec0649143eda7d}\index{FileUtility.cpp@{FileUtility.cpp}!createVarMap@{createVarMap}}
+\index{createVarMap@{createVarMap}!FileUtility.cpp@{FileUtility.cpp}}
+\doxysubsubsection{\texorpdfstring{createVarMap()}{createVarMap()}}
+{\footnotesize\ttfamily \label{_file_utility_8cpp_a397558edbd0c5e4fa4ec0649143eda7d} 
+map$<$ int, string $>$ create\+Var\+Map (\begin{DoxyParamCaption}\item[{int}]{num\+Vars}{, }\item[{const string \&}]{prefix}{}\end{DoxyParamCaption})}
+
+
+
+Creates a mapping from integer variable IDs to string names. 
+
+DIMACS files use integers to represent variables. This function generates a map to associate each integer (e.\+g., 1, 2, 3) with a string name (e.\+g., "{}v1"{}, "{}v2"{}, "{}v3"{}).
+
+
+\begin{DoxyParams}{Parameters}
+{\em num\+Vars} & The total number of variables. \\
+\hline
+{\em prefix} & A string prefix to use for variable names (default is "{}v"{}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+map$<$int, string$>$ A map where the key is the integer ID and the value is the string name. 
+\end{DoxyReturn}
+\Hypertarget{_file_utility_8cpp_a4fe4af7efd412c54ce8d507af5fb0d1e}\index{FileUtility.cpp@{FileUtility.cpp}!readCNFFile@{readCNFFile}}
+\index{readCNFFile@{readCNFFile}!FileUtility.cpp@{FileUtility.cpp}}
+\doxysubsubsection{\texorpdfstring{readCNFFile()}{readCNFFile()}}
+{\footnotesize\ttfamily \label{_file_utility_8cpp_a4fe4af7efd412c54ce8d507af5fb0d1e} 
+bool read\+CNFFile (\begin{DoxyParamCaption}\item[{const string \&}]{filename}{, }\item[{vector$<$ vector$<$ int $>$ $>$ \&}]{clauses}{, }\item[{int \&}]{num\+Vars}{, }\item[{int \&}]{num\+Clauses}{}\end{DoxyParamCaption})}
+
+
+
+Reads a DIMACS CNF file and parses its clauses. 
+
+This function opens and reads a file specified in the DIMACS CNF format. It parses the \textquotesingle{}p\textquotesingle{} (problem) line to get the number of variables and clauses, and then reads each line of literals, grouping them into clauses.
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & The path to the CNF file. \\
+\hline
+{\em clauses} & A reference to a vector of vectors of integers, which will be populated with the clauses. \\
+\hline
+{\em num\+Vars} & A reference to an integer that will store the number of variables. \\
+\hline
+{\em num\+Clauses} & A reference to an integer that will store the number of clauses. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the file was successfully read and parsed. 
+
+false if the file could not be opened. 
+\end{DoxyReturn}

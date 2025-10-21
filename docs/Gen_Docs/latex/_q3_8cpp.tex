@@ -1,0 +1,42 @@
+\doxysection{Q3.\+cpp File Reference}
+\hypertarget{_q3_8cpp}{}\label{_q3_8cpp}\index{Q3.cpp@{Q3.cpp}}
+
+
+Implementation file for printing an expression parse tree in infix notation.  
+
+
+{\ttfamily \#include "{}Q3.\+h"{}}\newline
+{\ttfamily \#include "{}Q2.\+h"{}}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_q3_8cpp_aa36d631a8a42dc5027c8fb0f782e0dc6}{print\+Infix}} (\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*}root)
+\begin{DoxyCompactList}\small\item\em Prints the infix representation of a parse tree using in-\/order traversal. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation file for printing an expression parse tree in infix notation. 
+
+This file contains the functionality to traverse a parse tree, constructed from a logical expression, and print its corresponding fully-\/parenthesized infix representation to standard output. 
+
+\label{doc-func-members}
+\Hypertarget{_q3_8cpp_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{_q3_8cpp_aa36d631a8a42dc5027c8fb0f782e0dc6}\index{Q3.cpp@{Q3.cpp}!printInfix@{printInfix}}
+\index{printInfix@{printInfix}!Q3.cpp@{Q3.cpp}}
+\doxysubsubsection{\texorpdfstring{printInfix()}{printInfix()}}
+{\footnotesize\ttfamily \label{_q3_8cpp_aa36d631a8a42dc5027c8fb0f782e0dc6} 
+void print\+Infix (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*}}]{root}{}\end{DoxyParamCaption})}
+
+
+
+Prints the infix representation of a parse tree using in-\/order traversal. 
+
+This function recursively traverses the given expression tree. It prints an opening parenthesis before visiting the children of an operator node, then prints the left child, the operator itself, the right child, and finally a closing parenthesis. This ensures that the resulting expression is fully parenthesized to preserve the original operator precedence.
+
+
+\begin{DoxyParams}{Parameters}
+{\em root} & A pointer to the root node of the parse tree (or subtree) to be printed. \\
+\hline
+\end{DoxyParams}

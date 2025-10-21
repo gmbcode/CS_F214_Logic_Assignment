@@ -1,0 +1,108 @@
+\doxysection{Q5.\+cpp File Reference}
+\hypertarget{_q5_8cpp}{}\label{_q5_8cpp}\index{Q5.cpp@{Q5.cpp}}
+
+
+Implementation file for evaluating and generating truth tables for expression parse trees.  
+
+
+{\ttfamily \#include "{}Q2.\+h"{}}\newline
+{\ttfamily \#include "{}Q5.\+h"{}}\newline
+{\ttfamily \#include $<$stdexcept$>$}\newline
+{\ttfamily \#include $<$cctype$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$map$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$unordered\+\_\+map$>$}\newline
+{\ttfamily \#include $<$set$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{_q5_8cpp_adf8b69ec4d15cb0c3f084441b25b765e}{evaluate\+Truth\+Value}} (\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*}root, const map$<$ string, bool $>$ \&truth\+Values)
+\begin{DoxyCompactList}\small\item\em Evaluates the truth value of an expression tree for a single assignment of truth values. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{_q5_8cpp_adf34fe0211bd487764ed6a455ccb7b49}{evaluate}} (\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*}r, unordered\+\_\+map$<$ string, bool $>$ \&val)
+\begin{DoxyCompactList}\small\item\em Helper function to evaluate the tree for a specific row in the truth table. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_q5_8cpp_aeb9e7df605df9b221d7118ebd5edca41}{print\+Truth\+Table}} (\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*}r, set$<$ string $>$ \&vars)
+\begin{DoxyCompactList}\small\item\em Generates and prints a complete truth table for the given expression tree. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation file for evaluating and generating truth tables for expression parse trees. 
+
+This file contains functions to recursively evaluate the boolean value of a parse tree given a specific assignment of truth values to its variables. It also includes functionality to generate and print a complete truth table for the expression. 
+
+\label{doc-func-members}
+\Hypertarget{_q5_8cpp_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{_q5_8cpp_adf34fe0211bd487764ed6a455ccb7b49}\index{Q5.cpp@{Q5.cpp}!evaluate@{evaluate}}
+\index{evaluate@{evaluate}!Q5.cpp@{Q5.cpp}}
+\doxysubsubsection{\texorpdfstring{evaluate()}{evaluate()}}
+{\footnotesize\ttfamily \label{_q5_8cpp_adf34fe0211bd487764ed6a455ccb7b49} 
+bool evaluate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*}}]{r}{, }\item[{unordered\+\_\+map$<$ string, bool $>$ \&}]{val}{}\end{DoxyParamCaption})}
+
+
+
+Helper function to evaluate the tree for a specific row in the truth table. 
+
+This is a recursive helper function used by {\ttfamily print\+Truth\+Table}. It evaluates the expression tree based on the current assignment of boolean values in the {\ttfamily val} map. It assumes all variables in the tree exist in the map.
+
+
+\begin{DoxyParams}{Parameters}
+{\em r} & A pointer to the root of the tree (or subtree). \\
+\hline
+{\em val} & A reference to an unordered\+\_\+map containing the current truth value assignments for variables. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the expression evaluates to true. 
+
+false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{_q5_8cpp_adf8b69ec4d15cb0c3f084441b25b765e}\index{Q5.cpp@{Q5.cpp}!evaluateTruthValue@{evaluateTruthValue}}
+\index{evaluateTruthValue@{evaluateTruthValue}!Q5.cpp@{Q5.cpp}}
+\doxysubsubsection{\texorpdfstring{evaluateTruthValue()}{evaluateTruthValue()}}
+{\footnotesize\ttfamily \label{_q5_8cpp_adf8b69ec4d15cb0c3f084441b25b765e} 
+bool evaluate\+Truth\+Value (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*}}]{root}{, }\item[{const map$<$ string, bool $>$ \&}]{truth\+Values}{}\end{DoxyParamCaption})}
+
+
+
+Evaluates the truth value of an expression tree for a single assignment of truth values. 
+
+This function recursively traverses the tree. For operator nodes, it computes the result based on the values of its children. For variable (leaf) nodes, it looks up the value in the provided map.
+
+
+\begin{DoxyParams}{Parameters}
+{\em root} & A pointer to the root of the parse tree (or subtree) to be evaluated. \\
+\hline
+{\em truth\+Values} & A constant map where keys are variable names (strings) and values are their assigned boolean truth values. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the expression evaluates to true for the given assignment. 
+
+false otherwise. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+error} & if a variable encountered in the tree is not found in the {\ttfamily truth\+Values} map. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{_q5_8cpp_aeb9e7df605df9b221d7118ebd5edca41}\index{Q5.cpp@{Q5.cpp}!printTruthTable@{printTruthTable}}
+\index{printTruthTable@{printTruthTable}!Q5.cpp@{Q5.cpp}}
+\doxysubsubsection{\texorpdfstring{printTruthTable()}{printTruthTable()}}
+{\footnotesize\ttfamily \label{_q5_8cpp_aeb9e7df605df9b221d7118ebd5edca41} 
+void print\+Truth\+Table (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*}}]{r}{, }\item[{set$<$ string $>$ \&}]{vars}{}\end{DoxyParamCaption})}
+
+
+
+Generates and prints a complete truth table for the given expression tree. 
+
+This function first prints a header with all the variable names. It then iterates through all possible combinations of truth values (2\texorpdfstring{$^\wedge$}{\string^}n rows, where n is the number of variables). For each combination, it evaluates the expression and prints the result.
+
+
+\begin{DoxyParams}{Parameters}
+{\em r} & A pointer to the root of the expression tree. \\
+\hline
+{\em vars} & A reference to a set of strings containing all unique variable names in the expression. \\
+\hline
+\end{DoxyParams}

@@ -1,0 +1,125 @@
+\doxysection{Q1.\+cpp File Reference}
+\hypertarget{_q1_8cpp}{}\label{_q1_8cpp}\index{Q1.cpp@{Q1.cpp}}
+
+
+Implementation file for converting infix propositional logic expressions to prefix notation.  
+
+
+{\ttfamily \#include "{}Q1.\+h"{}}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$stack$>$}\newline
+{\ttfamily \#include $<$cctype$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{_q1_8cpp_aa5ff2ee4144b5c743215b730ec023c4e}{priority\+\_\+order}} (const string \&op)
+\begin{DoxyCompactList}\small\item\em Returns the priority (precedence) of a logical operator. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{_q1_8cpp_a6af7d7b17996cc3001b9333be7fb8dd0}{is\+Operator}} (const string \&s)
+\begin{DoxyCompactList}\small\item\em Checks if a given string is a recognized logical operator. \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{_q1_8cpp_a5b76b088981dafde2d8a6868574e1062}{get\+Next\+Token}} (const string \&infix, int \&index, bool reverse=false)
+\begin{DoxyCompactList}\small\item\em Extracts the next token (variable, operator, or parenthesis) from an infix expression string. \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{_q1_8cpp_adcb4031b2dee72ddd4c6a1a934145a9b}{infix\+To\+Prefix}} (string infix)
+\begin{DoxyCompactList}\small\item\em Converts a propositional logic expression from infix notation to prefix (Polish) notation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation file for converting infix propositional logic expressions to prefix notation. 
+
+Contains helper functions for operator priority, operator identification, token extraction, and the main infix-\/to-\/prefix conversion algorithm. 
+
+\label{doc-func-members}
+\Hypertarget{_q1_8cpp_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{_q1_8cpp_a5b76b088981dafde2d8a6868574e1062}\index{Q1.cpp@{Q1.cpp}!getNextToken@{getNextToken}}
+\index{getNextToken@{getNextToken}!Q1.cpp@{Q1.cpp}}
+\doxysubsubsection{\texorpdfstring{getNextToken()}{getNextToken()}}
+{\footnotesize\ttfamily \label{_q1_8cpp_a5b76b088981dafde2d8a6868574e1062} 
+string get\+Next\+Token (\begin{DoxyParamCaption}\item[{const string \&}]{infix}{, }\item[{int \&}]{index}{, }\item[{bool}]{reverse}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+
+
+
+Extracts the next token (variable, operator, or parenthesis) from an infix expression string. 
+
+This function handles whitespace skipping and can scan either left-\/to-\/right or right-\/to-\/left. Variables are strings of alphanumeric characters and underscores. Operators and parentheses are single-\/character tokens.
+
+
+\begin{DoxyParams}{Parameters}
+{\em infix} & The infix expression string. \\
+\hline
+{\em index} & A reference to the current position (index) in the string. This index will be modified to point past the extracted token (or before it, if scanning in reverse). \\
+\hline
+{\em reverse} & A boolean flag. If false (default), scans left-\/to-\/right (index increases). If true, scans right-\/to-\/left (index decreases). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string The extracted token. Returns an empty string if the end (or beginning, if reverse) of the string is reached. 
+\end{DoxyReturn}
+\Hypertarget{_q1_8cpp_adcb4031b2dee72ddd4c6a1a934145a9b}\index{Q1.cpp@{Q1.cpp}!infixToPrefix@{infixToPrefix}}
+\index{infixToPrefix@{infixToPrefix}!Q1.cpp@{Q1.cpp}}
+\doxysubsubsection{\texorpdfstring{infixToPrefix()}{infixToPrefix()}}
+{\footnotesize\ttfamily \label{_q1_8cpp_adcb4031b2dee72ddd4c6a1a934145a9b} 
+string infix\+To\+Prefix (\begin{DoxyParamCaption}\item[{string}]{infix}{}\end{DoxyParamCaption})}
+
+
+
+Converts a propositional logic expression from infix notation to prefix (Polish) notation. 
+
+This implementation uses a modified shunting-\/yard algorithm that scans the infix string from right to left to produce the prefix notation. Tokens (operators, operands, parentheses) are expected to be separated by spaces in the output string.
+
+
+\begin{DoxyParams}{Parameters}
+{\em infix} & The infix expression string (e.\+g., "{}p1 + \texorpdfstring{$\sim$}{\string~} q1"{}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string The equivalent prefix expression string (e.\+g., "{}+ p1 \texorpdfstring{$\sim$}{\string~} q1"{}). 
+\end{DoxyReturn}
+\Hypertarget{_q1_8cpp_a6af7d7b17996cc3001b9333be7fb8dd0}\index{Q1.cpp@{Q1.cpp}!isOperator@{isOperator}}
+\index{isOperator@{isOperator}!Q1.cpp@{Q1.cpp}}
+\doxysubsubsection{\texorpdfstring{isOperator()}{isOperator()}}
+{\footnotesize\ttfamily \label{_q1_8cpp_a6af7d7b17996cc3001b9333be7fb8dd0} 
+bool is\+Operator (\begin{DoxyParamCaption}\item[{const string \&}]{s}{}\end{DoxyParamCaption})}
+
+
+
+Checks if a given string is a recognized logical operator. 
+
+Recognized operators are\+: {\ttfamily \texorpdfstring{$\sim$}{\string~}} (Negation), {\ttfamily \texorpdfstring{$\ast$}{*}} (AND), {\ttfamily +} (OR), {\ttfamily \texorpdfstring{$>$}{>}} (Implication).
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & The string to check. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the string is one of the recognized operators, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{_q1_8cpp_aa5ff2ee4144b5c743215b730ec023c4e}\index{Q1.cpp@{Q1.cpp}!priority\_order@{priority\_order}}
+\index{priority\_order@{priority\_order}!Q1.cpp@{Q1.cpp}}
+\doxysubsubsection{\texorpdfstring{priority\_order()}{priority\_order()}}
+{\footnotesize\ttfamily \label{_q1_8cpp_aa5ff2ee4144b5c743215b730ec023c4e} 
+int priority\+\_\+order (\begin{DoxyParamCaption}\item[{const string \&}]{op}{}\end{DoxyParamCaption})}
+
+
+
+Returns the priority (precedence) of a logical operator. 
+
+Higher numbers indicate higher priority.
+\begin{DoxyItemize}
+\item {\ttfamily \texorpdfstring{$\sim$}{\string~}} (Negation)\+: 4
+\item {\ttfamily \texorpdfstring{$\ast$}{*}} (AND)\+: 3
+\item {\ttfamily +} (OR)\+: 2
+\item {\ttfamily \texorpdfstring{$>$}{>}} (Implication)\+: 1
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em op} & The operator string (e.\+g., "{}\texorpdfstring{$\sim$}{\string~}"{}, "{}\texorpdfstring{$\ast$}{*}"{}, "{}+"{}, "{}$>$"{}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int The priority level of the operator, or -\/1 if the string is not a recognized operator. 
+\end{DoxyReturn}

@@ -1,0 +1,190 @@
+\doxysection{Q6.\+cpp File Reference}
+\hypertarget{_q6_8cpp}{}\label{_q6_8cpp}\index{Q6.cpp@{Q6.cpp}}
+
+
+Implementation file for converting a propositional logic expression tree into Conjunctive Normal Form (CNF).  
+
+
+{\ttfamily \#include "{}Q2.\+h"{}}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_q6_8cpp_ae59ba0206d6d2d52f6ed0c2276f7766a}{clone\+Node}} (\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*}node)
+\begin{DoxyCompactList}\small\item\em Recursively creates a deep copy of a \doxylink{struct_tree_node}{Tree\+Node} and its entire subtree. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_q6_8cpp_af3eeb6953742f0cf8d7c80e1b60f48d1}{get\+Negation\+Child}} (\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*}node)
+\begin{DoxyCompactList}\small\item\em Helper function to safely get the child of a negation node. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_q6_8cpp_a4228883b4d058e7c25ac34b153d96bfd}{IMPL\+\_\+\+FREE}} (\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*}root)
+\begin{DoxyCompactList}\small\item\em Step 1 of CNF conversion\+: Eliminates all implication operators from the tree. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_q6_8cpp_a1e55013d857a3e21705ca2ebb518c14a}{NNF}} (\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*}root)
+\begin{DoxyCompactList}\small\item\em Step 2 of CNF conversion\+: Converts an implication-\/free tree to Negation Normal Form (NNF). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_q6_8cpp_aa06f885c539e022fdc5f8d6e67845b27}{DISTR}} (\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*}root)
+\begin{DoxyCompactList}\small\item\em Helper function for CNF that distributes OR (\textquotesingle{}+\textquotesingle{}) over AND (\textquotesingle{}\texorpdfstring{$\ast$}{*}\textquotesingle{}). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_q6_8cpp_a700d3d5b9238c80ef0da6c54c89d2c7f}{CNF}} (\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*}root)
+\begin{DoxyCompactList}\small\item\em Step 3 of CNF conversion\+: Converts a tree in NNF to Conjunctive Normal Form. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_q6_8cpp_a885c2a69629b92e4ef8a99db8e4d1391}{to\+CNF}} (\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*}root)
+\begin{DoxyCompactList}\small\item\em The main pipeline to convert a propositional logic expression tree to CNF. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation file for converting a propositional logic expression tree into Conjunctive Normal Form (CNF). 
+
+This file contains the functions that perform the multi-\/step process of CNF conversion\+:
+\begin{DoxyEnumerate}
+\item IMPL\+\_\+\+FREE\+: Eliminate all implication operators.
+\item NNF\+: Convert the expression into Negation Normal Form by moving negations inward.
+\item CNF (with DISTR)\+: Distribute ORs over ANDs to create a conjunction of disjunctions. The final {\ttfamily to\+CNF} function orchestrates this entire pipeline. 
+\end{DoxyEnumerate}
+
+\label{doc-func-members}
+\Hypertarget{_q6_8cpp_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{_q6_8cpp_ae59ba0206d6d2d52f6ed0c2276f7766a}\index{Q6.cpp@{Q6.cpp}!cloneNode@{cloneNode}}
+\index{cloneNode@{cloneNode}!Q6.cpp@{Q6.cpp}}
+\doxysubsubsection{\texorpdfstring{cloneNode()}{cloneNode()}}
+{\footnotesize\ttfamily \label{_q6_8cpp_ae59ba0206d6d2d52f6ed0c2276f7766a} 
+\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*} clone\+Node (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*}}]{node}{}\end{DoxyParamCaption})}
+
+
+
+Recursively creates a deep copy of a \doxylink{struct_tree_node}{Tree\+Node} and its entire subtree. 
+
+This utility is used to create new nodes and subtrees without modifying the original tree structure during transformations.
+
+
+\begin{DoxyParams}{Parameters}
+{\em node} & A pointer to the root of the tree (or subtree) to be cloned. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Tree\+Node\texorpdfstring{$\ast$}{*} A pointer to the root of the new, cloned tree. 
+\end{DoxyReturn}
+\Hypertarget{_q6_8cpp_a700d3d5b9238c80ef0da6c54c89d2c7f}\index{Q6.cpp@{Q6.cpp}!CNF@{CNF}}
+\index{CNF@{CNF}!Q6.cpp@{Q6.cpp}}
+\doxysubsubsection{\texorpdfstring{CNF()}{CNF()}}
+{\footnotesize\ttfamily \label{_q6_8cpp_a700d3d5b9238c80ef0da6c54c89d2c7f} 
+\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*} CNF (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*}}]{root}{}\end{DoxyParamCaption})}
+
+
+
+Step 3 of CNF conversion\+: Converts a tree in NNF to Conjunctive Normal Form. 
+
+This function recursively processes the tree. For OR nodes, it ensures its children are in CNF first, then applies the {\ttfamily DISTR} function to guarantee the result is a conjunction of clauses (disjunctions of literals).
+
+
+\begin{DoxyParams}{Parameters}
+{\em root} & A pointer to the root of a tree in NNF. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Tree\+Node\texorpdfstring{$\ast$}{*} A pointer to the root of a new tree in CNF. 
+\end{DoxyReturn}
+\Hypertarget{_q6_8cpp_aa06f885c539e022fdc5f8d6e67845b27}\index{Q6.cpp@{Q6.cpp}!DISTR@{DISTR}}
+\index{DISTR@{DISTR}!Q6.cpp@{Q6.cpp}}
+\doxysubsubsection{\texorpdfstring{DISTR()}{DISTR()}}
+{\footnotesize\ttfamily \label{_q6_8cpp_aa06f885c539e022fdc5f8d6e67845b27} 
+\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*} DISTR (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*}}]{root}{}\end{DoxyParamCaption})}
+
+
+
+Helper function for CNF that distributes OR (\textquotesingle{}+\textquotesingle{}) over AND (\textquotesingle{}\texorpdfstring{$\ast$}{*}\textquotesingle{}). 
+
+This function recursively applies the distribution law\+:
+\begin{DoxyItemize}
+\item A + (B \texorpdfstring{$\ast$}{*} C) \texorpdfstring{$<$}{<}=\texorpdfstring{$>$}{>} (A + B) \texorpdfstring{$\ast$}{*} (A + C)
+\item (B \texorpdfstring{$\ast$}{*} C) + A \texorpdfstring{$<$}{<}=\texorpdfstring{$>$}{>} (B + A) \texorpdfstring{$\ast$}{*} (C + A) This is the core step in transforming an NNF expression into a conjunction of disjunctions.
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em root} & A pointer to the root of a tree (or subtree) in NNF. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Tree\+Node\texorpdfstring{$\ast$}{*} A pointer to the root of a new tree where OR has been distributed over AND. 
+\end{DoxyReturn}
+\Hypertarget{_q6_8cpp_af3eeb6953742f0cf8d7c80e1b60f48d1}\index{Q6.cpp@{Q6.cpp}!getNegationChild@{getNegationChild}}
+\index{getNegationChild@{getNegationChild}!Q6.cpp@{Q6.cpp}}
+\doxysubsubsection{\texorpdfstring{getNegationChild()}{getNegationChild()}}
+{\footnotesize\ttfamily \label{_q6_8cpp_af3eeb6953742f0cf8d7c80e1b60f48d1} 
+\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*} get\+Negation\+Child (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*}}]{node}{}\end{DoxyParamCaption})}
+
+
+
+Helper function to safely get the child of a negation node. 
+
+In the parse tree structure used, the operand of a unary negation operator (\textquotesingle{}\texorpdfstring{$\sim$}{\string~}\textquotesingle{}) is always stored in the {\ttfamily right} child. This function provides a clear way to access it.
+
+
+\begin{DoxyParams}{Parameters}
+{\em node} & A pointer to the node to check. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Tree\+Node\texorpdfstring{$\ast$}{*} A pointer to the child operand if the input is a negation node, otherwise {\ttfamily nullptr}. 
+\end{DoxyReturn}
+\Hypertarget{_q6_8cpp_a4228883b4d058e7c25ac34b153d96bfd}\index{Q6.cpp@{Q6.cpp}!IMPL\_FREE@{IMPL\_FREE}}
+\index{IMPL\_FREE@{IMPL\_FREE}!Q6.cpp@{Q6.cpp}}
+\doxysubsubsection{\texorpdfstring{IMPL\_FREE()}{IMPL\_FREE()}}
+{\footnotesize\ttfamily \label{_q6_8cpp_a4228883b4d058e7c25ac34b153d96bfd} 
+\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*} IMPL\+\_\+\+FREE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*}}]{root}{}\end{DoxyParamCaption})}
+
+
+
+Step 1 of CNF conversion\+: Eliminates all implication operators from the tree. 
+
+It recursively traverses the tree and replaces every subtree of the form {\ttfamily A \texorpdfstring{$>$}{>} B} with its logical equivalent, {\ttfamily \texorpdfstring{$\sim$}{\string~}A + B}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em root} & A pointer to the root of the expression tree. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Tree\+Node\texorpdfstring{$\ast$}{*} A pointer to the root of a new tree that is logically equivalent but contains no implication (\textquotesingle{}\texorpdfstring{$>$}{>}\textquotesingle{}) operators. 
+\end{DoxyReturn}
+\Hypertarget{_q6_8cpp_a1e55013d857a3e21705ca2ebb518c14a}\index{Q6.cpp@{Q6.cpp}!NNF@{NNF}}
+\index{NNF@{NNF}!Q6.cpp@{Q6.cpp}}
+\doxysubsubsection{\texorpdfstring{NNF()}{NNF()}}
+{\footnotesize\ttfamily \label{_q6_8cpp_a1e55013d857a3e21705ca2ebb518c14a} 
+\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*} NNF (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*}}]{root}{}\end{DoxyParamCaption})}
+
+
+
+Step 2 of CNF conversion\+: Converts an implication-\/free tree to Negation Normal Form (NNF). 
+
+In NNF, negations (\textquotesingle{}\texorpdfstring{$\sim$}{\string~}\textquotesingle{}) only appear directly in front of atomic propositions (variables), forming literals. This is achieved by applying De Morgan\textquotesingle{}s laws and eliminating double negations. The input tree must already be implication-\/free.
+
+
+\begin{DoxyParams}{Parameters}
+{\em root} & A pointer to the root of the implication-\/free expression tree. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Tree\+Node\texorpdfstring{$\ast$}{*} A pointer to the root of a new, logically equivalent tree in NNF. 
+\end{DoxyReturn}
+\Hypertarget{_q6_8cpp_a885c2a69629b92e4ef8a99db8e4d1391}\index{Q6.cpp@{Q6.cpp}!toCNF@{toCNF}}
+\index{toCNF@{toCNF}!Q6.cpp@{Q6.cpp}}
+\doxysubsubsection{\texorpdfstring{toCNF()}{toCNF()}}
+{\footnotesize\ttfamily \label{_q6_8cpp_a885c2a69629b92e4ef8a99db8e4d1391} 
+\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*} to\+CNF (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*}}]{root}{}\end{DoxyParamCaption})}
+
+
+
+The main pipeline to convert a propositional logic expression tree to CNF. 
+
+It executes the three main steps in sequence\+:
+\begin{DoxyEnumerate}
+\item {\ttfamily IMPL\+\_\+\+FREE}\+: Eliminate implications.
+\item {\ttfamily NNF}\+: Convert to Negation Normal Form.
+\item {\ttfamily CNF}\+: Apply distribution recursively to get the final CNF structure.
+\end{DoxyEnumerate}
+
+
+\begin{DoxyParams}{Parameters}
+{\em root} & A pointer to the root of the original expression tree. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Tree\+Node\texorpdfstring{$\ast$}{*} A pointer to the root of a new, logically equivalent tree in CNF. 
+\end{DoxyReturn}

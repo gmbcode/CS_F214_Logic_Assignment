@@ -1,0 +1,45 @@
+\doxysection{Q4.\+cpp File Reference}
+\hypertarget{_q4_8cpp}{}\label{_q4_8cpp}\index{Q4.cpp@{Q4.cpp}}
+
+
+Implementation file for calculating the height of an expression parse tree.  
+
+
+{\ttfamily \#include "{}Q2.\+h"{}}\newline
+{\ttfamily \#include "{}Q4.\+h"{}}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{_q4_8cpp_a3142c3ebbe5d4c68ddcc78ec536b18e1}{get\+Parse\+Tree\+Height}} (\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*}root)
+\begin{DoxyCompactList}\small\item\em Recursively calculates the height of a parse tree. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation file for calculating the height of an expression parse tree. 
+
+This file contains the logic to determine the height of a given parse tree, which is defined as the number of nodes along the longest path from the root node down to the farthest leaf node. 
+
+\label{doc-func-members}
+\Hypertarget{_q4_8cpp_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{_q4_8cpp_a3142c3ebbe5d4c68ddcc78ec536b18e1}\index{Q4.cpp@{Q4.cpp}!getParseTreeHeight@{getParseTreeHeight}}
+\index{getParseTreeHeight@{getParseTreeHeight}!Q4.cpp@{Q4.cpp}}
+\doxysubsubsection{\texorpdfstring{getParseTreeHeight()}{getParseTreeHeight()}}
+{\footnotesize\ttfamily \label{_q4_8cpp_a3142c3ebbe5d4c68ddcc78ec536b18e1} 
+int get\+Parse\+Tree\+Height (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*}}]{root}{}\end{DoxyParamCaption})}
+
+
+
+Recursively calculates the height of a parse tree. 
+
+The height of a tree is the length of the longest path from the root to a leaf. An empty tree (nullptr) has a height of 0. A tree with a single node has a height of 1. The function works by finding the height of the left and right subtrees and returning 1 (for the current node) plus the height of the taller subtree.
+
+
+\begin{DoxyParams}{Parameters}
+{\em root} & A pointer to the root node of the tree (or subtree). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int The height of the tree. 
+\end{DoxyReturn}

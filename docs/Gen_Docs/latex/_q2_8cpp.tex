@@ -1,0 +1,112 @@
+\doxysection{Q2.\+cpp File Reference}
+\hypertarget{_q2_8cpp}{}\label{_q2_8cpp}\index{Q2.cpp@{Q2.cpp}}
+
+
+Implementation file for building and managing a parse tree from a prefix propositional logic expression.  
+
+
+{\ttfamily \#include "{}Q2.\+h"{}}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$cctype$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{_q2_8cpp_af358f2be7bfb930b6d8bd7a63ee25315}{is\+Binary\+Operator}} (const string \&s)
+\begin{DoxyCompactList}\small\item\em Checks if a given string is a binary logical operator. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{_q2_8cpp_ae899d878cb89dcc913b5fac8385d2b4a}{is\+Unary\+Operator}} (const string \&s)
+\begin{DoxyCompactList}\small\item\em Checks if a given string is a unary logical operator. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{_q2_8cpp_a880c350d39b196c1741bf24548990f1b}{build\+Parse\+Tree}} (const string \&prefix)
+\begin{DoxyCompactList}\small\item\em Builds a parse tree from a given prefix expression string. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_q2_8cpp_ad9ff54310178febf522367e6c7c91b41}{delete\+Tree}} (\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*}root)
+\begin{DoxyCompactList}\small\item\em Deletes an entire parse tree and frees its memory. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation file for building and managing a parse tree from a prefix propositional logic expression. 
+
+This file contains the logic to parse a prefix expression string and construct an corresponding expression tree. It includes helper functions for tokenizing the string and identifying operator types, as well as functions to build and delete the tree structure. 
+
+\label{doc-func-members}
+\Hypertarget{_q2_8cpp_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{_q2_8cpp_a880c350d39b196c1741bf24548990f1b}\index{Q2.cpp@{Q2.cpp}!buildParseTree@{buildParseTree}}
+\index{buildParseTree@{buildParseTree}!Q2.cpp@{Q2.cpp}}
+\doxysubsubsection{\texorpdfstring{buildParseTree()}{buildParseTree()}}
+{\footnotesize\ttfamily \label{_q2_8cpp_a880c350d39b196c1741bf24548990f1b} 
+\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*} build\+Parse\+Tree (\begin{DoxyParamCaption}\item[{const string \&}]{prefix}{}\end{DoxyParamCaption})}
+
+
+
+Builds a parse tree from a given prefix expression string. 
+
+This is the public-\/facing function that initiates the tree-\/building process. It handles empty input and initializes the starting index for the recursive helper function.
+
+
+\begin{DoxyParams}{Parameters}
+{\em prefix} & The complete prefix expression string (e.\+g., "{}$>$ p \texorpdfstring{$\ast$}{*} q \texorpdfstring{$\sim$}{\string~} r"{}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Tree\+Node\texorpdfstring{$\ast$}{*} A pointer to the root of the newly constructed parse tree. Returns nullptr if the input string is empty. 
+\end{DoxyReturn}
+\Hypertarget{_q2_8cpp_ad9ff54310178febf522367e6c7c91b41}\index{Q2.cpp@{Q2.cpp}!deleteTree@{deleteTree}}
+\index{deleteTree@{deleteTree}!Q2.cpp@{Q2.cpp}}
+\doxysubsubsection{\texorpdfstring{deleteTree()}{deleteTree()}}
+{\footnotesize\ttfamily \label{_q2_8cpp_ad9ff54310178febf522367e6c7c91b41} 
+void delete\+Tree (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_tree_node}{Tree\+Node}} \texorpdfstring{$\ast$}{*}}]{root}{}\end{DoxyParamCaption})}
+
+
+
+Deletes an entire parse tree and frees its memory. 
+
+This function traverses the tree in a post-\/order fashion to ensure that child nodes are deleted before their parent node, preventing memory leaks.
+
+
+\begin{DoxyParams}{Parameters}
+{\em root} & A pointer to the root node of the tree to be deleted. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{_q2_8cpp_af358f2be7bfb930b6d8bd7a63ee25315}\index{Q2.cpp@{Q2.cpp}!isBinaryOperator@{isBinaryOperator}}
+\index{isBinaryOperator@{isBinaryOperator}!Q2.cpp@{Q2.cpp}}
+\doxysubsubsection{\texorpdfstring{isBinaryOperator()}{isBinaryOperator()}}
+{\footnotesize\ttfamily \label{_q2_8cpp_af358f2be7bfb930b6d8bd7a63ee25315} 
+bool is\+Binary\+Operator (\begin{DoxyParamCaption}\item[{const string \&}]{s}{}\end{DoxyParamCaption})}
+
+
+
+Checks if a given string is a binary logical operator. 
+
+Binary operators in this context are {\ttfamily +} (OR), {\ttfamily \texorpdfstring{$\ast$}{*}} (AND), and {\ttfamily \texorpdfstring{$>$}{>}} (Implication).
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & The string token to check. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the token is a binary operator. 
+
+false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{_q2_8cpp_ae899d878cb89dcc913b5fac8385d2b4a}\index{Q2.cpp@{Q2.cpp}!isUnaryOperator@{isUnaryOperator}}
+\index{isUnaryOperator@{isUnaryOperator}!Q2.cpp@{Q2.cpp}}
+\doxysubsubsection{\texorpdfstring{isUnaryOperator()}{isUnaryOperator()}}
+{\footnotesize\ttfamily \label{_q2_8cpp_ae899d878cb89dcc913b5fac8385d2b4a} 
+bool is\+Unary\+Operator (\begin{DoxyParamCaption}\item[{const string \&}]{s}{}\end{DoxyParamCaption})}
+
+
+
+Checks if a given string is a unary logical operator. 
+
+The only unary operator in this context is {\ttfamily \texorpdfstring{$\sim$}{\string~}} (Negation).
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & The string token to check. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the token is a unary operator. 
+
+false otherwise. 
+\end{DoxyReturn}
