@@ -133,12 +133,12 @@ string getNextToken(const string& infix, int& index, bool reverse = false) {
  * Tokens (operators, operands, parentheses) are expected to be separated by spaces
  * in the output string.
  *
- * @param infix The infix expression string (e.g., "p > (q * ~r)").
- * @return string The equivalent prefix expression string (e.g., "> p * q ~ r").
+ * @param infix The infix expression string (e.g., "p1 + ~ q1").
+ * @return string The equivalent prefix expression string (e.g., "+ p1 ~ q1").
  */
 string infixToPrefix(string infix) {
-    stack<string> st;  // Changed from stack<char> to stack<string>
-    vector<string> prefix_tokens;  // Store tokens instead of characters
+    stack<string> st;
+    vector<string> prefix_tokens;
 
     // 1. Scan the infix expression from right to left
     int i = infix.length() - 1;
@@ -167,8 +167,11 @@ string infixToPrefix(string infix) {
         }
         // If an operator is encountered
         else if (isOperator(token)) {
-            // Pop operators with higher priority
-            while (!st.empty() && priority_order(st.top()) > priority_order(token)) {
+            // CORRECTED: Pop operators with GREATER OR EQUAL priority
+            // For right-to-left scan, we need >= for correct associativity
+            while (!st.empty() &&
+                   st.top() != ")" &&
+                   priority_order(st.top()) >= priority_order(token)) {
                 prefix_tokens.push_back(st.top());
                 st.pop();
             }

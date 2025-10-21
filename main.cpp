@@ -21,7 +21,8 @@ int main() {
 
     cout << "Task 1 : Converting infix to prefix propositional logic formula" << endl;
     string infix;
-    cin >> infix;
+    getline(cin,infix);
+
     cout << "Prefix propositional logic formula : " << infixToPrefix(infix) << endl;
 
     std::cout << "--- Test Case 1 ---" << std::endl;
@@ -41,7 +42,7 @@ int main() {
     printTruthTable(root1,vars);
     // Clean up the allocated memory
     deleteTree(root1);
-    /*
+
     std::cout << "\n--- Test Case 2 ---" << std::endl;
     std::string prefix2 = "* + p q > ~ r s";
 
@@ -62,6 +63,7 @@ int main() {
     cout << "Infix to prefix is : "<< infixToPrefix(test) << endl;
     TreeNode* root3 = buildParseTree(infixToPrefix(test));
     printInfix(root3);
+    cout << endl;
     cout << "Height of parse tree is : "<< getParseTreeHeight(root3) << endl;
     cout << "Truth value is : " << evaluateTruthValue(root3, truthValues) << endl;
 
@@ -91,7 +93,7 @@ int main() {
     auto duration1 = std::chrono::duration_cast<std::chrono::seconds>(end - start);
     cout << "Clauses calculated in " << duration1.count() << " s" << std::endl;
     deleteTree(root5);
-    */
+
     return 0;
 
 }
