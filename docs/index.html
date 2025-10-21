@@ -129,6 +129,54 @@
             margin-top: 10px;
         }
 
+        /* --- Authors Section --- */
+        .authors-section {
+            text-align: center;
+            margin: 40px 0;
+            width: 100%;
+        }
+
+        .authors-section h2 {
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        .authors-grid {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            gap: 30px;
+            flex-wrap: nowrap; /* force one row */
+            width: 100%;
+            overflow-x: auto; /* allows scroll if too wide */
+        }
+
+        .author-card {
+            flex: 0 0 220px; /* fixed width for each card */
+            background-color: #f7f7f7;
+            border-radius: 10px;
+            padding: 15px 10px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            white-space: nowrap;
+        }
+        .author-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .author-name {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .author-id {
+            color: #555;
+            font-size: 0.95em;
+        }
+
         footer {
             background: #2c3e50;
             color: white;
@@ -198,7 +246,6 @@
                 <div class="task-title">Tree Height Computation</div>
                 <div class="task-desc">Calculates the height of the parse tree using recursive depth-first traversal.</div>
             </a>
-
             <a href="https://github.com/gmbcode/CS_F214_Logic_Assignment/blob/latest/Q5.cpp" class="task-card">
                 <div class="task-number">Task 5</div>
                 <div class="task-title">Truth Value Evaluation</div>
@@ -217,6 +264,30 @@
                 <div class="task-desc">Validates CNF formulas and identifies tautological clauses by checking for complementary literals.</div>
             </a>
         </div>
+
+        <!-- Authors Section -->
+        <div class="authors-section">
+            <h2>Authors</h2>
+            <div class="authors-grid">
+                <div class="author-card">
+                    <div class="author-name">Bhavya Shah</div>
+                    <div class="author-id">2024A7PS0139H</div>
+                </div>
+                <div class="author-card">
+                    <div class="author-name">Prathamesh Patil</div>
+                    <div class="author-id">2024A7PS0052H</div>
+                </div>
+                <div class="author-card">
+                    <div class="author-name">Sahitya Sharma</div>
+                    <div class="author-id">2024A7PS0096H</div>
+                </div>
+                <div class="author-card">
+                    <div class="author-name">Krish Vasa</div>
+                    <div class="author-id">2024A7PS0106H</div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <footer>
