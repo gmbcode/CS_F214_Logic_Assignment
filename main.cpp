@@ -18,14 +18,14 @@ using std::cin;
 using std::endl;
 using std::map;
 int main() {
-    /*
+
     cout << "Task 1 : Converting infix to prefix propositional logic formula" << endl;
     string infix;
     cin >> infix;
     cout << "Prefix propositional logic formula : " << infixToPrefix(infix) << endl;
 
     std::cout << "--- Test Case 1 ---" << std::endl;
-    std::string prefix1 = "+p~q";
+    std::string prefix1 = "+ p1 ~ q1";
 
     std::cout << "Prefix Expression: " << prefix1 << std::endl;
 
@@ -36,11 +36,12 @@ int main() {
     std::cout << "Resulting Infix:   ";
     printInfix(root1);
     std::cout << std::endl;
-    std::cout << "Expected Infix:    (p+(~q))" << std::endl;
-
+    std::cout << "Expected Infix:    (p1+(~q1))" << std::endl;
+    set<string> vars = {"p1","q1"};
+    printTruthTable(root1,vars);
     // Clean up the allocated memory
     deleteTree(root1);
-
+    /*
     std::cout << "\n--- Test Case 2 ---" << std::endl;
     std::string prefix2 = "* + p q > ~ r s";
 
@@ -73,7 +74,7 @@ int main() {
     std::pair<int,int> val = isCNF(root4);
     cout << endl;
     cout <<" Number of valid clauses : " << val.first << endl <<  "Number of invalid clauses : " << val.second << endl;
-    */
+
     // Testing on file
     auto start = std::chrono::high_resolution_clock::now();
     TreeNode* root5 = buildParseTreeFromFile("C:\\Users\\gmbha\\OneDrive\\Desktop\\compute\\Logic_Assignment\\test2.cnf");
@@ -90,6 +91,7 @@ int main() {
     auto duration1 = std::chrono::duration_cast<std::chrono::seconds>(end - start);
     cout << "Clauses calculated in " << duration1.count() << " s" << std::endl;
     deleteTree(root5);
+    */
     return 0;
 
 }
