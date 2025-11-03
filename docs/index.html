@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,
-initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Propositional Logic Parser - Analysis</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -13,10 +13,8 @@ initial-scale=1.0">
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana,
-            sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2
-            100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -31,8 +29,7 @@ initial-scale=1.0">
         }
 
         header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2
-            100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 40px;
             text-align: center;
@@ -66,8 +63,7 @@ initial-scale=1.0">
         }
 
         .task-card {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2
-            100%);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             border-radius: 15px;
             padding: 25px;
             transition: transform 0.3s, box-shadow 0.3s;
@@ -134,7 +130,54 @@ initial-scale=1.0">
             margin-top: 10px;
         }
 
-        /* --- Authors Section --- */
+        .complexity-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8eef5 100%);
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+        }
+
+        .complexity-section h2 {
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 400px;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .complexity-legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .legend-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .legend-item h4 {
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .legend-item p {
+            color: #666;
+            font-size: 0.9em;
+        }
+
         .authors-section {
             text-align: center;
             margin: 40px 0;
@@ -152,13 +195,13 @@ initial-scale=1.0">
             justify-content: center;
             align-items: stretch;
             gap: 30px;
-            flex-wrap: nowrap; /* force one row */
+            flex-wrap: nowrap;
             width: 100%;
-            overflow-x: auto; /* allows scroll if too wide */
+            overflow-x: auto;
         }
 
         .author-card {
-            flex: 0 0 220px; /* fixed width for each card */
+            flex: 0 0 220px;
             background-color: #f7f7f7;
             border-radius: 10px;
             padding: 15px 10px;
@@ -166,6 +209,7 @@ initial-scale=1.0">
             text-align: center;
             white-space: nowrap;
         }
+
         .author-card:hover {
             transform: translateY(-4px);
         }
@@ -194,22 +238,17 @@ initial-scale=1.0">
 <div class="container">
     <header>
         <h1>🔬 Propositional Logic Assignment</h1>
-        <p>Algorithm Analysis & Implementation
-            Documentation</p>
+        <p>Algorithm Analysis & Implementation Documentation</p>
     </header>
 
     <div class="content">
         <div class="intro">
             <h2>Project Overview</h2>
-            <p>This project implements a comprehensive
-                propositional logic parser and analyzer capable of handling complex
-                logical formulas. The system converts infix expressions to prefix
-                notation, builds parse trees, performs CNF conversion, and validates
+            <p>This project implements a comprehensive propositional logic parser and analyzer capable of handling complex
+                logical formulas. The system converts infix expressions to prefix notation, builds parse trees, performs CNF conversion, and validates
                 logical formulas.</p>
-            <p style="margin-top: 15px;"><strong>Key
-                Features:</strong> Support for multi-character variables,
-                efficient tree construction, CNF conversion with parse tree generation,
-                and tautology detection.</p>
+            <p style="margin-top: 15px;"><strong>Key Features:</strong> Support for multi-character variables,
+                efficient tree construction, CNF conversion with parse tree generation, and tautology detection.</p>
         </div>
 
         <div class="stats-section">
@@ -221,13 +260,11 @@ initial-scale=1.0">
                 </div>
                 <div class="stat-card">
                     <div class="stat-number">O(n)</div>
-                    <div class="stat-label">Average
-                        Complexity</div>
+                    <div class="stat-label">Average Complexity</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-number">1000+</div>
-                    <div class="stat-label">Variables
-                        Supported</div>
+                    <div class="stat-label">Variables Supported</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-number">16MB</div>
@@ -238,77 +275,51 @@ initial-scale=1.0">
 
         <h2>Task Analysis</h2>
         <div class="task-grid">
-            <a
-                    href="https://github.com/gmbcode/CS_F214_Logic_Assignment/blob/latest/Q1.cpp"
-                    class="task-card">
+            <a href="https://github.com/gmbcode/CS_F214_Logic_Assignment/blob/latest/Q1.cpp" class="task-card">
                 <div class="task-number">Task 1</div>
-                <div class="task-title">Infix to Prefix
-                    Conversion</div>
-                <div class="task-desc">Converts propositional
-                    logic expressions from infix to prefix notation using a modified
+                <div class="task-title">Infix to Prefix Conversion</div>
+                <div class="task-desc">Converts propositional logic expressions from infix to prefix notation using a modified
                     Shunting Yard algorithm.<br><strong>Time:</strong> O(N)<br><strong>Space:</strong> O(N)</div>
             </a>
 
-            <a
-                    href="https://github.com/gmbcode/CS_F214_Logic_Assignment/blob/latest/Q2.cpp"
-                    class="task-card">
+            <a href="https://github.com/gmbcode/CS_F214_Logic_Assignment/blob/latest/Q2.cpp" class="task-card">
                 <div class="task-number">Task 2</div>
-                <div class="task-title">Parse Tree
-                    Construction</div>
-                <div class="task-desc">Builds a rooted binary
-                    parse tree from prefix expressions with support for multi-character
+                <div class="task-title">Parse Tree Construction</div>
+                <div class="task-desc">Builds a rooted binary parse tree from prefix expressions with support for multi-character
                     variables.<br><strong>Time:</strong> O(T)<br><strong>Space:</strong> O(T)</div>
             </a>
 
-            <a
-                    href="https://github.com/gmbcode/CS_F214_Logic_Assignment/blob/latest/Q3.cpp"
-                    class="task-card">
+            <a href="https://github.com/gmbcode/CS_F214_Logic_Assignment/blob/latest/Q3.cpp" class="task-card">
                 <div class="task-number">Task 3</div>
-                <div class="task-title">Infix
-                    Reconstruction</div>
-                <div class="task-desc">Traverses the parse tree
-                    using in-order traversal to reconstruct the original infix
+                <div class="task-title">Infix Reconstruction</div>
+                <div class="task-desc">Traverses the parse tree using in-order traversal to reconstruct the original infix
                     expression.<br><strong>Time:</strong> O(M)<br><strong>Space:</strong> O(H)</div>
             </a>
 
-            <a
-                    href="https://github.com/gmbcode/CS_F214_Logic_Assignment/blob/latest/Q4.cpp"
-                    class="task-card">
+            <a href="https://github.com/gmbcode/CS_F214_Logic_Assignment/blob/latest/Q4.cpp" class="task-card">
                 <div class="task-number">Task 4</div>
-                <div class="task-title">Tree Height
-                    Computation</div>
-                <div class="task-desc">Calculates the height of
-                    the parse tree using recursive depth-first traversal.<br><strong>Time:</strong> O(M)<br><strong>Space:</strong> O(H)</div>
+                <div class="task-title">Tree Height Computation</div>
+                <div class="task-desc">Calculates the height of the parse tree using recursive depth-first traversal.<br><strong>Time:</strong> O(M)<br><strong>Space:</strong> O(H)</div>
             </a>
-            <a
-                    href="https://github.com/gmbcode/CS_F214_Logic_Assignment/blob/latest/Q5.cpp"
-                    class="task-card">
+
+            <a href="https://github.com/gmbcode/CS_F214_Logic_Assignment/blob/latest/Q5.cpp" class="task-card">
                 <div class="task-number">Task 5</div>
-                <div class="task-title">Truth Value
-                    Evaluation</div>
-                <div class="task-desc">Evaluates propositional
-                    formulas given truth assignments using bottom-up tree
+                <div class="task-title">Truth Value Evaluation</div>
+                <div class="task-desc">Evaluates propositional formulas given truth assignments using bottom-up tree
                     traversal.<br><strong>Time:</strong> O(M)<br><strong>Space:</strong> O(H+V)</div>
             </a>
 
-            <a
-                    href="https://github.com/gmbcode/CS_F214_Logic_Assignment/blob/latest/Q6.cpp"
-                    class="task-card">
+            <a href="https://github.com/gmbcode/CS_F214_Logic_Assignment/blob/latest/Q6.cpp" class="task-card">
                 <div class="task-number">Task 6</div>
                 <div class="task-title">CNF Conversion</div>
-                <div class="task-desc">Converts any propositional
-                    formula to Conjunctive Normal Form using IMPL_FREE, NNF, and
+                <div class="task-desc">Converts any propositional formula to Conjunctive Normal Form using IMPL_FREE, NNF, and
                     distribution.<br><strong>Time:</strong> Exponential<br><strong>Space:</strong> Exponential</div>
             </a>
 
-            <a
-                    href="https://github.com/gmbcode/CS_F214_Logic_Assignment/blob/latest/Q7.cpp"
-                    class="task-card">
+            <a href="https://github.com/gmbcode/CS_F214_Logic_Assignment/blob/latest/Q7.cpp" class="task-card">
                 <div class="task-number">Task 7</div>
-                <div class="task-title">CNF Validity
-                    Check</div>
-                <div class="task-desc">Validates CNF formulas and
-                    identifies tautological clauses by checking for complementary
+                <div class="task-title">CNF Validity Check</div>
+                <div class="task-desc">Validates CNF formulas and identifies tautological clauses by checking for complementary
                     literals.<br><strong>Time:</strong> O(M)<br><strong>Space:</strong> O(M)</div>
             </a>
 
@@ -319,48 +330,149 @@ initial-scale=1.0">
                     Auto-generated documentation for all C++ source files, including call graphs and file structures.
                 </div>
             </a>
-
         </div>
 
-        <!-- Authors Section -->
-        <div class="authors-section">
-            <h2>Authors</h2>
-            <div class="authors-grid">
-                <div class="author-card">
-                    <div class="author-name">Bhavya
-                        Shah</div>
-                    <div
-                            class="author-id">2024A7PS0139H</div>
+        <div class="complexity-section">
+            <h2>Time Complexity Analysis</h2>
+            <div class="chart-container">
+                <canvas id="complexityChart"></canvas>
+            </div>
+            <div class="complexity-legend">
+                <div class="legend-item" style="border-color: #667eea;">
+                    <h4>Tasks 1-5, 7: Linear O(n)</h4>
+                    <p>Efficient single-pass or tree traversal algorithms with linear time complexity</p>
                 </div>
-                <div class="author-card">
-                    <div class="author-name">Prathamesh
-                        Patil</div>
-                    <div
-                            class="author-id">2024A7PS0052H</div>
-                </div>
-                <div class="author-card">
-                    <div class="author-name">Sahitya
-                        Sharma</div>
-                    <div
-                            class="author-id">2024A7PS0096H</div>
-                </div>
-                <div class="author-card">
-                    <div class="author-name">Krish
-                        Vasa</div>
-                    <div
-                            class="author-id">2024A7PS0106H</div>
+                <div class="legend-item" style="border-color: #e74c3c;">
+                    <h4>Task 6: Exponential</h4>
+                    <p>CNF conversion requires exponential time due to distribution operations in worst case</p>
                 </div>
             </div>
         </div>
 
+        <div class="authors-section">
+            <h2>Authors</h2>
+            <div class="authors-grid">
+                <div class="author-card">
+                    <div class="author-name">Bhavya Shah</div>
+                    <div class="author-id">2024A7PS0139H</div>
+                </div>
+                <div class="author-card">
+                    <div class="author-name">Prathamesh Patil</div>
+                    <div class="author-id">2024A7PS0052H</div>
+                </div>
+                <div class="author-card">
+                    <div class="author-name">Sahitya Sharma</div>
+                    <div class="author-id">2024A7PS0096H</div>
+                </div>
+                <div class="author-card">
+                    <div class="author-name">Krish Vasa</div>
+                    <div class="author-id">2024A7PS0106H</div>
+                </div>
+            </div>
+        </div>
     </div>
 
-
     <footer>
-        <p>Logic Assignment 2025 | Algorithm Analysis &
-            Implementation</p>
+        <p>Logic Assignment 2025 | Algorithm Analysis & Implementation</p>
     </footer>
 </div>
+
+<script>
+    const n = [];
+    for (let i = 1; i <= 100; i++) {
+        n.push(i);
+    }
+
+    const linearComplexity = n.map(x => x);
+    const exponentialComplexity = n.map(x => Math.pow(2, x / 10));
+
+    const ctx = document.getElementById('complexityChart').getContext('2d');
+    const chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: n,
+            datasets: [
+                {
+                    label: 'Tasks 1, 2, 3, 4, 5, 7 - O(n)',
+                    data: linearComplexity,
+                    borderColor: '#667eea',
+                    backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                    borderWidth: 3,
+                    pointRadius: 0,
+                    tension: 0.1
+                },
+                {
+                    label: 'Task 6 - Exponential',
+                    data: exponentialComplexity,
+                    borderColor: '#e74c3c',
+                    backgroundColor: 'rgba(231, 76, 60, 0.1)',
+                    borderWidth: 3,
+                    pointRadius: 0,
+                    tension: 0.1
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Time Complexity Growth by Input Size',
+                    font: {
+                        size: 16,
+                        weight: 'bold'
+                    }
+                },
+                legend: {
+                    display: true,
+                    position: 'top',
+                    labels: {
+                        font: {
+                            size: 12
+                        },
+                        padding: 15
+                    }
+                },
+                tooltip: {
+                    mode: 'index',
+                    intersect: false
+                }
+            },
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Input Size (n)',
+                        font: {
+                            size: 14,
+                            weight: 'bold'
+                        }
+                    },
+                    ticks: {
+                        maxTicksLimit: 10
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Time (Operations)',
+                        font: {
+                            size: 14,
+                            weight: 'bold'
+                        }
+                    },
+                    beginAtZero: true,
+                    type: 'logarithmic'
+                }
+            },
+            interaction: {
+                mode: 'nearest',
+                axis: 'x',
+                intersect: false
+            }
+        }
+    });
+</script>
 </body>
 </html>
-
