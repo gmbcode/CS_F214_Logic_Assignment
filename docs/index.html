@@ -192,12 +192,34 @@
 
         .authors-grid {
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: stretch;
             gap: 30px;
             flex-wrap: nowrap;
             width: 100%;
             overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: #667eea #f0f0f0;
+            padding: 0 20px;
+        }
+
+        .authors-grid::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .authors-grid::-webkit-scrollbar-track {
+            background: #f0f0f0;
+            border-radius: 10px;
+        }
+
+        .authors-grid::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 10px;
+        }
+
+        .authors-grid::-webkit-scrollbar-thumb:hover {
+            background: #764ba2;
         }
 
         .author-card {
